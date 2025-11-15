@@ -9,7 +9,7 @@ $name_user=$_SESSION['name_user'];
 <?
 include 'head.php';
 ?>
-<title> </title>
+<title>Новости епархии</title>
 
 </head>
 <body>
@@ -20,101 +20,86 @@ include 'golova.php';
 $new = yes;
 include 'menu.php';
 include 'function.php';
-require_once __DIR__.'/includes/table_functions.php';
 
 include 'content.php';
 
 ?>
 <div id="osnovnoe">
 
-<h1> </h1>
-<?
-$perPage = 10;
-if (!isset($_GET['page'])) {
+<h1>Новости епархии</h1>
+
+ <?   if(!isset($_GET['page'])){
   $p = 1;
-} else {
-  $p = (int)$_GET['page'];
-  if ($p < 1) $p = 1;
 }
-
-$total = count_combined_news();
-$num_pages = $total > 0 ? ceil($total / $perPage) : 1;
+else{
+  $p = addslashes(strip_tags(trim($_GET['page'])));
+  if($p < 1) $p = 1;
+}
+$num_elements = 10;
+$total = mysql_result(mysql_query("SELECT COUNT(*) FROM host1409556_barysh.news_eparhia"),0,0); //Подсчет общего числа записей
+$num_pages = ceil($total / $num_elements); //Подсчет числа страниц
 if ($p > $num_pages) $p = $num_pages;
-$items = fetch_combined_news($p, $perPage);
+$start = ($p - 1) * $num_elements; //Стартовая позиция выборки из БД
+                    
+					
+  echo GetNav($p, $num_pages, "news").'<hr style="width: 100%" />';
+            $sel = "SELECT * FROM host1409556_barysh.news_eparhia ORDER BY data DESC LIMIT ".$start.", ".$num_elements;
+            $query = mysql_query($sel);
+            if(mysql_num_rows($query)>0){
 
-$sectionTitles = array(
-  'barysh_tag' => ' ',
-  'arhipastry' => ' ',
-  'slovo' => '  '
-);
+			while($res = mysql_fetch_array($query)){
 
-echo GetNav($p, $num_pages, "news").'<hr style="width: 100%" />';
 
-if (!empty($items)) {
-  foreach ($items as $item) {
-    $isLocal = ($item['source'] === 'local');
-    $title = htmlspecialchars($item['tema'], ENT_QUOTES, 'cp1251');
-    $dateLabel = format_russian_datetime($item['published_at']);
-    if ($isLocal) {
-      $preview = transform_legacy_markup($item['kratko']);
-    } else {
-      $previewText = htmlspecialchars($item['kratko'], ENT_QUOTES, 'cp1251');
-      $preview = '<p>'.nl2br($previewText).'</p>';
-    }
+$dtn = $res[data]; 
+$yyn = substr($dtn,0,4); // Год
+$mmn = substr($dtn,5,2); // Месяц
+$ddn = substr($dtn,8,2); // День
 
-    if ($isLocal) {
-      $link = 'news_show.php?data='.urlencode($item['legacy_key']);
-      $linkAttr = '';
-    } else {
-      $link = $item['external_link'];
-      $linkAttr = ' target="_blank" rel="noopener"';
-    }
+// Переназначаем переменные
+if ($mmn == "01") $mm1n="января";
+if ($mmn == "02") $mm1n="февраля";
+if ($mmn == "03") $mm1n="марта";
+if ($mmn == "04") $mm1n="апреля";
+if ($mmn == "05") $mm1n="мая";
+if ($mmn == "06") $mm1n="июня";
+if ($mmn == "07") $mm1n="июля";
+if ($mmn == "08") $mm1n="августа";
+if ($mmn == "09") $mm1n="сентября";
+if ($mmn == "10") $mm1n="октября";
+if ($mmn == "11") $mm1n="ноября";
+if ($mmn == "12") $mm1n="декабря";
 
-    $imageHtml = '';
-    if (!empty($item['oblozka'])) {
-      if ($isLocal) {
-        $imgSrc = 'FOTO_MINI/'.htmlspecialchars($item['oblozka'], ENT_QUOTES, 'cp1251').'.jpg';
-      } else {
-        $imgSrc = htmlspecialchars($item['oblozka'], ENT_QUOTES, 'cp1251');
-      }
-      $imageHtml = '<img class="img-fluid rounded shadow-sm me-3 mb-3" src="'.$imgSrc.'" alt="'.$title.'" />';
-    }
+if ($ddn == "01") $ddn="1";
+if ($ddn == "02") $ddn="2";
+if ($ddn == "03") $ddn="3";
+if ($ddn == "04") $ddn="4";
+if ($ddn == "05") $ddn="5";
+if ($ddn == "06") $ddn="6";
+if ($ddn == "07") $ddn="7";
+if ($ddn == "08") $ddn="8";
+if ($ddn == "09") $ddn="9";
 
-    $viewsInfo = '';
-    if ($isLocal) {
-      $viewsInfo = '<span class="views">: '.(int)$item['views'].'.</span>';
-    }
+$hours = substr($dtn,11,5); // Время 
 
-    $badge = '';
-    if (!$isLocal && !empty($item['section_label'])) {
-      $section = $item['section_label'];
-      $label = isset($sectionTitles[$section]) ? $sectionTitles[$section] : $section;
-      $badge = '<span class="badge bg-secondary ms-2">'.htmlspecialchars($label, ENT_QUOTES, 'cp1251').'</span>';
-    }
+$ddttn = '<span class="date">'.$ddn.' '.$mm1n.' '.$yyn.' г. '.$hours.'</span>'; // Конечный вид строки
 
-    echo '<article class="card shadow-sm border-0 mb-4">';
-    echo '<div class="card-body d-flex flex-column flex-md-row">';
-    if ($imageHtml) {
-      echo '<div class="flex-shrink-0">'.$imageHtml.'</div>';
-    }
-    echo '<div>';
-    echo '<h2 class="h4 card-title"><a class="text-decoration-none" href="'.$link.'"'.$linkAttr.'>'.$title.'</a>'.$badge.'</h2>';
-    echo '<div class="mb-2">'.$dateLabel.'</div>';
-    echo '<div class="card-text">'.$preview.'</div>';
-    echo '<div class="mt-3">'.$viewsInfo;
-    if (!$isLocal && $item['external_link']) {
-      echo ' <a class="btn btn-sm btn-outline-primary" href="'.$link.'" target="_blank" rel="noopener">  </a>';
-    }
-    echo '</div>';
-    echo '</div>';
-    echo '</div>';
-    echo '</article>';
-  }
-} else {
-  echo '<div class="alert alert-info">  .</div>';
+	$patterns = array ('/(?:\{{3})(http:\/\/[^\s\[<\(\)\|]+)(?:\}{3})-(?:\{{3})([^}]+)(?:\}{3})/i', '/\n/', '/(?:\/{3})/', '/(?:\|{3})/', '/@[^@]+@/', '/(?:\{{3})/', '/(?:\}{3})/');
+	$replace = array ('${2}', '</p><p>', '', '', '', '', '');
+	$text = preg_replace($patterns, $replace, $res[kratko]);
+
+echo '<div style="float: left; margin-bottom: 10px; border-bottom: 1px #D7D7D7 solid"><div class="block_title"><span class="title"><a href="news_show.php?data='.$res[data].'">'.$res[tema].'</a></span><br />'.$ddttn;
+ if ($res['video']) echo '<span style="color: #777"> (+ Видео)</span>';
+
+echo '</div><div>';
+
+if ($res[oblozka]) echo '<div><img style="box-shadow: 2px 2px 5px rgba(0,0,0,0.3); display: inline;float: left;border: 1px solid #C3D7D4; margin: 0 10px 5px 10px; padding: 10px" src="FOTO_MINI/'.$res[oblozka].'.jpg" /></div>';
+
+echo '<div style="margin-right: 5px"><p>'.$text.'</p><div class="zakladka" style="margin: 0 0 0 20px"><span class="views">Просмотров: '.$res[views].'.<br /><br /></span></div></div></div></div>';
+}
 }
 
-echo '<div style="width: 100%">'.GetNav($p, $num_pages, "news").'</div><hr style="width: 100%" />';
+  echo '<table width="100%"><tr><td>'.GetNav($p, $num_pages, "news").'</td></tr></table><hr style="width: 100%" />';
+
 ?>
 
 </div>
