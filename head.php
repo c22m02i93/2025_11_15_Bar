@@ -1,27 +1,10 @@
 
 
-<meta name="keywords" content="Барышская епархия, Русская Православная Церковь, Симбирсая митрополия, епархия, Барыш, Ульяновск, Ульяновская область" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<link rel="stylesheet" type="text/css" href="style.css">
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-<script type="text/javascript">
-$(function() {
-// функцию скролла привязать к окну браузера
-$(window).scroll(function(){
-    
-// distanceTop = (высота: от начала страницы до эл-та #last) -
-//- высота окна браузера
-var distanceTop = $('#last').offset().top;
-// если величина прокрутки больше distanceTop 
-if  ($(window).scrollTop() > distanceTop)
-$('#slidebox').animate({'top':'0px'},0);
-else
-$('#slidebox').stop(true).animate({'top':'-200px'},0);
-});
-//связываем  function() с событием click для эл-та  .close 
-$('#slidebox .close').bind('click',function(){
-$(this).parent().remove();
-});
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-e3d78b810e16a3a836b6b5480bec219c2f4782555026a756d34b93cf64bcbec2" crossorigin="anonymous">
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+ 
 });
 </script> 
 <script type="text/javascript">
@@ -103,7 +86,7 @@ $mTimeStart=$sec+$msec; ?>
 				'transitionOut'		: 'none',
 				'titlePosition' 	: 'over',
 				'titleFormat'		: function(title, currentArray, currentIndex, currentOpts) {
-					return '<span id="fancybox-title-over">Фото ' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? ' &nbsp; ' + title : '') + '</span>';
+					return '<span id="fancybox-title-over">Г”Г®ГІГ® ' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? ' &nbsp; ' + title : '') + '</span>';
 				}
 			});
 
@@ -140,4 +123,8 @@ $mTimeStart=$sec+$msec; ?>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/baguettebox.js@1.11.1/dist/baguetteBox.min.css">
 <script src="https://cdn.jsdelivr.net/npm/baguettebox.js@1.11.1/dist/baguetteBox.min.js"></script>
 
-<script src="https://cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ioA1NVuMcZV8K4D4ew3Efr2E1VlzDq+W8sELpAo0P5NdQ4KJIp4jOSAmhpN6wXNj" crossorigin="anonymous" defer></script>
+<script src="/assets/js/site.js?v=1" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@ckeditor/ckeditor5-build-classic@39.0.1/build/ckeditor.js" defer></script>
+<script src="/assets/js/editor.js?v=1" defer></script>
+

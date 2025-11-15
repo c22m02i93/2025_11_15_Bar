@@ -10,7 +10,7 @@ if ($auth!=1) {Header ("Location: my_auth.php");}
 <?
 include 'head.php';
 ?>
-<title>Добавление выпуска радиопередачи</title>
+<title>Г„Г®ГЎГ ГўГ«ГҐГ­ГЁГҐ ГўГ»ГЇГіГ±ГЄГ  Г°Г Г¤ГЁГ®ГЇГҐГ°ГҐГ¤Г Г·ГЁ</title>
 
 </head>
 <body>
@@ -26,7 +26,7 @@ include 'content.php';
 ?>
 <div id="osnovnoe">
 
-<h1>Добавление выпуска радиопередачи</h1>
+<h1>Г„Г®ГЎГ ГўГ«ГҐГ­ГЁГҐ ГўГ»ГЇГіГ±ГЄГ  Г°Г Г¤ГЁГ®ГЇГҐГ°ГҐГ¤Г Г·ГЁ</h1>
 
 <?php
  $submit = $_POST['submit'];
@@ -41,23 +41,23 @@ if ($submit) {
 	   mysql_query("INSERT INTO host1409556_barysh.radio VALUES ('', '$data', '$tema', '$news')");
 	   	   if ($new_day_add == 'yes') {
 		   $url = 'sv_vecher'; 
-		   $kratko = 'Добавлена запись радиоэфира.';
+		<TR><TD colspan=2><TEXTAREA NAME='news' data-editor="rich" COLS=55 ROWS=10 required></TEXTAREA></TD></TR>
 	   	   mysql_query("INSERT INTO host1409556_barysh.news VALUES ('$data', '$url', '$tema', '$kratko')");
 }
-echo '<p style="color:#135B00; text-align: center"><b>Видео успешно добавлено!</b></p><br />';
+echo '<p style="color:#135B00; text-align: center"><b>Г‚ГЁГ¤ГҐГ® ГіГ±ГЇГҐГёГ­Г® Г¤Г®ГЎГ ГўГ«ГҐГ­Г®!</b></p><br />';
 }
 ?>
 	<TABLE CELLSPACING=3 CELLPADDING=2 width='500' align='center' border=0>
         <FORM ACTION='<? echo 'my_radio.php'; ?>' method='post'>
-    			<TR><TD VALIGN=top><b>Тема:</B></TD><TD></TD></TR>
+    			<TR><TD VALIGN=top><b>Г’ГҐГ¬Г :</B></TD><TD></TD></TR>
 		<TR><TD colspan=2><INPUT TYPE="TEXT" NAME="tema" SIZE=70 required/></TD></TR>
-<TR><TD VALIGN=top><B>Код:</B></TD><TD></TD></TR>
+<TR><TD VALIGN=top><B>ГЉГ®Г¤:</B></TD><TD></TD></TR>
 		<TR><TD colspan=2><TEXTAREA NAME='news' COLS=55 ROWS=10 required></TEXTAREA></TD></TR>
-	<TR><TD colspan=2><INPUT TYPE="CHECKBOX" NAME="new_day_add" VALUE ="yes" id="new_day"> <label for="new_day"><b>Выводить в новостях</b></label></TD></TR>
+	<TR><TD colspan=2><INPUT TYPE="CHECKBOX" NAME="new_day_add" VALUE ="yes" id="new_day"> <label for="new_day"><b>Г‚Г»ГўГ®Г¤ГЁГІГј Гў Г­Г®ГўГ®Г±ГІГїГµ</b></label></TD></TR>
 
 	<TR><TD colspan=2>
-	<INPUT TYPE='submit' name='submit' value='Добавить' />
-        <INPUT TYPE='reset' value='Очистить'></TD></TR>
+	<INPUT TYPE='submit' name='submit' value='Г„Г®ГЎГ ГўГЁГІГј' />
+        <INPUT TYPE='reset' value='ГЋГ·ГЁГ±ГІГЁГІГј'></TD></TR>
  </FORM>  
 
 	</TABLE>	

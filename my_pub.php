@@ -10,7 +10,7 @@ if ($auth!=1) {Header ("Location: my_auth.php");}
 <?
 include 'head.php';
 ?>
-<title>Добавление публикаций</title>
+<title>Г„Г®ГЎГ ГўГ«ГҐГ­ГЁГҐ ГЇГіГЎГ«ГЁГЄГ Г¶ГЁГ©</title>
 
 </head>
 <body>
@@ -26,7 +26,7 @@ include 'content.php';
 ?>
 <div id="osnovnoe">
 
-<h1>Добавление публикаций</h1>
+<h1>Г„Г®ГЎГ ГўГ«ГҐГ­ГЁГҐ ГЇГіГЎГ«ГЁГЄГ Г¶ГЁГ©</h1>
 
 <?php
     mysql_connect("localhost", "host1409556", "0f7cd928"); 
@@ -78,7 +78,7 @@ copy($_FILES['uploadfile']['tmp_name'], $uploadfile);
 	
 	imageresize($uploadfile,$uploadfile,900,900,100);
 	imageresize($uploadfile_mini,$uploadfile,130,130,100);
-###################### новость дня
+###################### Г­Г®ГўГ®Г±ГІГј Г¤Г­Гї
 function removedir ($directory){
 $dir = opendir($directory);
 while($file = readdir($dir))
@@ -98,7 +98,7 @@ imageresize($uploadfile_day,$uploadfile,200,200,100);
 
 #####################################
 }
-else {echo '<p style="color:RED; text-align: center">Неверное расширение файла фотографии<br />Допускается только JPG-формат.</p>'; $error = yes;}
+else {echo '<p style="color:RED; text-align: center">ГЌГҐГўГҐГ°Г­Г®ГҐ Г°Г Г±ГёГЁГ°ГҐГ­ГЁГҐ ГґГ Г©Г«Г  ГґГ®ГІГ®ГЈГ°Г ГґГЁГЁ<br />Г„Г®ГЇГіГ±ГЄГ ГҐГІГ±Гї ГІГ®Г«ГјГЄГ® JPG-ГґГ®Г°Г¬Г ГІ.</p>'; $error = yes;}
 
 }
 else $b =NULL;
@@ -117,40 +117,40 @@ else $b =NULL;
 	   $url = 'pub_show';
 
 	   	   mysql_query("INSERT INTO host1409556_barysh.news VALUES ('$data', '$url', '$tema', '$kratko')");
-echo '<p style="color:#135B00; text-align: center"><b>Публикация успешно добавлена!</b></p><br />';
-}
+		<TR><TD colspan=2><TEXTAREA NAME='kratko' data-editor="rich" COLS=55 ROWS=5 required></TEXTAREA></TD></TR>
+		<TR><TD colspan=2><TEXTAREA NAME='news' data-editor="rich" COLS=55 ROWS=20 required></TEXTAREA></TD></TR>
 
 }
 
 ?>
 	<TABLE CELLSPACING=3 CELLPADDING=2 width='400' align='center' border=0>
         <FORM ACTION='my_pub.php' method='post' enctype=multipart/form-data>
-		<TR><TD VALIGN=top><b>Тема:</B></TD><TD></TD></TR>
+		<TR><TD VALIGN=top><b>Г’ГҐГ¬Г :</B></TD><TD></TD></TR>
 		<TR><TD colspan=2><INPUT TYPE="TEXT" NAME="tema" SIZE=70 required/></TD></TR>
 		<TR><TD>
 		<input type=file name="uploadfile"><br /><br />
 		</TD><TD></TD></TR>
-    	<TR><TD VALIGN=top><B>Коротко:</B></TD><TD></TD></TR>
+    	<TR><TD VALIGN=top><B>ГЉГ®Г°Г®ГІГЄГ®:</B></TD><TD></TD></TR>
 		<TR><TD colspan=2><TEXTAREA NAME='kratko' COLS=55 ROWS=5 required></TEXTAREA></TD></TR>
-    	<TR><TD VALIGN=top><B>Событие:</B></TD><TD></TD></TR>
+    	<TR><TD VALIGN=top><B>Г‘Г®ГЎГ»ГІГЁГҐ:</B></TD><TD></TD></TR>
 		<TR><TD colspan=2><TEXTAREA NAME='news' COLS=55 ROWS=20 required></TEXTAREA></TD></TR>
-		<TR><TD VALIGN=top><B>Фотоальбом</B> (номера фотографий через пробел, без знаков препинания):</TD><TD></TD></TR>
+		<TR><TD VALIGN=top><B>Г”Г®ГІГ®Г Г«ГјГЎГ®Г¬</B> (Г­Г®Г¬ГҐГ°Г  ГґГ®ГІГ®ГЈГ°Г ГґГЁГ© Г·ГҐГ°ГҐГ§ ГЇГ°Г®ГЎГҐГ«, ГЎГҐГ§ Г§Г­Г ГЄГ®Гў ГЇГ°ГҐГЇГЁГ­Г Г­ГЁГї):</TD><TD></TD></TR>
 		<TR><TD colspan=2><TEXTAREA NAME='albom' COLS=55 ROWS=5></TEXTAREA></TD></TR>
 
 <TR><TD VALIGN=top colspan=2>
-	<INPUT TYPE='submit' name='submit' value='Добавить' />
-        <INPUT TYPE='reset' value='Очистить'></TD></TR>
+	<INPUT TYPE='submit' name='submit' value='Г„Г®ГЎГ ГўГЁГІГј' />
+        <INPUT TYPE='reset' value='ГЋГ·ГЁГ±ГІГЁГІГј'></TD></TR>
  </FORM>  
 
 	</TABLE>	
 	<hr />
-	<p><b>Правила оформления:</b></p>
-	<p><b>@R15-Комментарий@</b> - фотография, выровненная по правому краю, где цифра (15) - номер фотографии, коммментарий - коментарий к фотографии (может отсутствовать).</p>
-	<p><b>@L15-Комментарий@</b> - фотография, выровненная по левому краю, где цифра (15) - номер фотографии, коммментарий - коментарий к фотографии (может отсутствовать).</p>
-	<p><b>|||слово|||</b> - выделить текст жирным.</p>
-	<p><b>///слово///</b> - выделить текст курсивом.</p>
-	<p><b>[[[слово]]]</b> - текст по центру.</p>
-	<p><b>{{{http://ссылка}}}-{{{текст, который будет отображаться}}}</b> - активная ссылка. Ввод <b>http://</b> перед ссылкой обязателен. </p>
+	<p><b>ГЏГ°Г ГўГЁГ«Г  Г®ГґГ®Г°Г¬Г«ГҐГ­ГЁГї:</b></p>
+	<p><b>@R15-ГЉГ®Г¬Г¬ГҐГ­ГІГ Г°ГЁГ©@</b> - ГґГ®ГІГ®ГЈГ°Г ГґГЁГї, ГўГ»Г°Г®ГўГ­ГҐГ­Г­Г Гї ГЇГ® ГЇГ°Г ГўГ®Г¬Гі ГЄГ°Г Гѕ, ГЈГ¤ГҐ Г¶ГЁГґГ°Г  (15) - Г­Г®Г¬ГҐГ° ГґГ®ГІГ®ГЈГ°Г ГґГЁГЁ, ГЄГ®Г¬Г¬Г¬ГҐГ­ГІГ Г°ГЁГ© - ГЄГ®Г¬ГҐГ­ГІГ Г°ГЁГ© ГЄ ГґГ®ГІГ®ГЈГ°Г ГґГЁГЁ (Г¬Г®Г¦ГҐГІ Г®ГІГ±ГіГІГ±ГІГўГ®ГўГ ГІГј).</p>
+	<p><b>@L15-ГЉГ®Г¬Г¬ГҐГ­ГІГ Г°ГЁГ©@</b> - ГґГ®ГІГ®ГЈГ°Г ГґГЁГї, ГўГ»Г°Г®ГўГ­ГҐГ­Г­Г Гї ГЇГ® Г«ГҐГўГ®Г¬Гі ГЄГ°Г Гѕ, ГЈГ¤ГҐ Г¶ГЁГґГ°Г  (15) - Г­Г®Г¬ГҐГ° ГґГ®ГІГ®ГЈГ°Г ГґГЁГЁ, ГЄГ®Г¬Г¬Г¬ГҐГ­ГІГ Г°ГЁГ© - ГЄГ®Г¬ГҐГ­ГІГ Г°ГЁГ© ГЄ ГґГ®ГІГ®ГЈГ°Г ГґГЁГЁ (Г¬Г®Г¦ГҐГІ Г®ГІГ±ГіГІГ±ГІГўГ®ГўГ ГІГј).</p>
+	<p><b>|||Г±Г«Г®ГўГ®|||</b> - ГўГ»Г¤ГҐГ«ГЁГІГј ГІГҐГЄГ±ГІ Г¦ГЁГ°Г­Г»Г¬.</p>
+	<p><b>///Г±Г«Г®ГўГ®///</b> - ГўГ»Г¤ГҐГ«ГЁГІГј ГІГҐГЄГ±ГІ ГЄГіГ°Г±ГЁГўГ®Г¬.</p>
+	<p><b>[[[Г±Г«Г®ГўГ®]]]</b> - ГІГҐГЄГ±ГІ ГЇГ® Г¶ГҐГ­ГІГ°Гі.</p>
+	<p><b>{{{http://Г±Г±Г»Г«ГЄГ }}}-{{{ГІГҐГЄГ±ГІ, ГЄГ®ГІГ®Г°Г»Г© ГЎГіГ¤ГҐГІ Г®ГІГ®ГЎГ°Г Г¦Г ГІГјГ±Гї}}}</b> - Г ГЄГІГЁГўГ­Г Гї Г±Г±Г»Г«ГЄГ . Г‚ГўГ®Г¤ <b>http://</b> ГЇГҐГ°ГҐГ¤ Г±Г±Г»Г«ГЄГ®Г© Г®ГЎГїГ§Г ГІГҐГ«ГҐГ­. </p>
 
 </div>
 

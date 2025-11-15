@@ -10,7 +10,7 @@ if ($auth!=1) {Header ("Location: my_auth.php");}
 <?
 include 'head.php';
 ?>
-<title>Добавление документов</title>
+<title>Г„Г®ГЎГ ГўГ«ГҐГ­ГЁГҐ Г¤Г®ГЄГіГ¬ГҐГ­ГІГ®Гў</title>
 <script src="jquery.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function () {
@@ -41,7 +41,7 @@ include 'content.php';
 ?>
 <div id="osnovnoe">
 
-<h1>Добавление документов</h1>
+<h1>Г„Г®ГЎГ ГўГ«ГҐГ­ГЁГҐ Г¤Г®ГЄГіГ¬ГҐГ­ГІГ®Гў</h1>
 
 <?php
  $submit = $_POST['submit'];
@@ -67,7 +67,7 @@ if ($tematika == 'udostoverenie') {$name = $san;}
 
 	   mysql_query("INSERT INTO host1409556_barysh.doks VALUES ('$date', '$year', '$numer', '$name', '$text', '$tematika')");
 
-echo '<p style="color:#135B00; text-align: center"><b>Документ успешно добавлен!</b></p><br />';
+echo '<p style="color:#135B00; text-align: center"><b>Г„Г®ГЄГіГ¬ГҐГ­ГІ ГіГ±ГЇГҐГёГ­Г® Г¤Г®ГЎГ ГўГ«ГҐГ­!</b></p><br />';
 
 
 }
@@ -75,14 +75,14 @@ echo '<p style="color:#135B00; text-align: center"><b>Документ успешно добавлен!
 ?>
 <br />
 <div class="tabs">
-<!-- Это сами вкладки -->
-    <ul class="tabNavigation">
-        <li><a class="" href="#first">Указ</a></li>
-        <li><a class="" href="#second">Распоряжение</a></li>
-        <li><a class="" href="#cirk">Циркуляр</a></li>
-        <li><a class="" href="#fift">Удостоверение</a></li>
+		<TR><TD colspan=2><TEXTAREA NAME='text' data-editor="rich" COLS=55 ROWS=10 required></TEXTAREA></TD></TR>
+		<TR><TD colspan=2><TEXTAREA NAME='text' data-editor="rich" COLS=55 ROWS=10 required></TEXTAREA></TD></TR>
+		<TR><TD colspan=2><TEXTAREA NAME='text' data-editor="rich" COLS=55 ROWS=10 required></TEXTAREA></TD></TR>
+		<TR><TD colspan=2><TEXTAREA NAME='text' data-editor="rich" COLS=55 ROWS=10 required></TEXTAREA></TD></TR>
+        <li><a class="" href="#cirk">Г–ГЁГ°ГЄГіГ«ГїГ°</a></li>
+        <li><a class="" href="#fift">Г“Г¤Г®Г±ГІГ®ГўГҐГ°ГҐГ­ГЁГҐ</a></li>
     </ul>
-<!-- Это контейнеры содержимого -->    
+<!-- ГќГІГ® ГЄГ®Г­ГІГҐГ©Г­ГҐГ°Г» Г±Г®Г¤ГҐГ°Г¦ГЁГ¬Г®ГЈГ® -->    
     <div id="first">
 <span class="table">
 	<TABLE CELLSPACING=3 CELLPADDING=2 width='400' align='center' border=0>
@@ -93,13 +93,13 @@ echo '<p style="color:#135B00; text-align: center"><b>Документ успешно добавлен!
 					</TD><TD>
 				</TD></TR>
 
-		<TR><TD VALIGN=top><b>Кому выдан документ:</B></TD><TD></TD></TR>
+		<TR><TD VALIGN=top><b>ГЉГ®Г¬Гі ГўГ»Г¤Г Г­ Г¤Г®ГЄГіГ¬ГҐГ­ГІ:</B></TD><TD></TD></TR>
 		<TR><TD colspan=2><INPUT TYPE="TEXT" NAME='name' SIZE=75 required/></TD></TR>
-		<TR><TD VALIGN=top><b>Текст:</B></TD><TD></TD></TR>
+		<TR><TD VALIGN=top><b>Г’ГҐГЄГ±ГІ:</B></TD><TD></TD></TR>
 		<TR><TD colspan=2><TEXTAREA NAME='text' COLS=55 ROWS=10 required></TEXTAREA></TD></TR>
 		<TR><TD VALIGN=top colspan=2>
-	<INPUT TYPE='submit' name='submit' value='Добавить' />
-        <INPUT TYPE='reset' value='Очистить'></TD></TR>
+	<INPUT TYPE='submit' name='submit' value='Г„Г®ГЎГ ГўГЁГІГј' />
+        <INPUT TYPE='reset' value='ГЋГ·ГЁГ±ГІГЁГІГј'></TD></TR>
  </FORM>  
 
 	</TABLE>	
@@ -115,16 +115,16 @@ echo '<p style="color:#135B00; text-align: center"><b>Документ успешно добавлен!
 					</TD><TD>
 				</TD></TR>
 
-		<TR><TD VALIGN=top><b>Номер документа:</B></TD><TD></TD></TR>
+		<TR><TD VALIGN=top><b>ГЌГ®Г¬ГҐГ° Г¤Г®ГЄГіГ¬ГҐГ­ГІГ :</B></TD><TD></TD></TR>
 		<TR><TD colspan=2><INPUT TYPE="TEXT" NAME='nomer' SIZE=75 required/></TD></TR>
 
-		<TR><TD VALIGN=top><b>Кому выдан документ:</B></TD><TD></TD></TR>
+		<TR><TD VALIGN=top><b>ГЉГ®Г¬Гі ГўГ»Г¤Г Г­ Г¤Г®ГЄГіГ¬ГҐГ­ГІ:</B></TD><TD></TD></TR>
 		<TR><TD colspan=2><INPUT TYPE="TEXT" NAME='name' SIZE=75/></TD></TR>
-		<TR><TD VALIGN=top><b>Текст:</B></TD><TD></TD></TR>
+		<TR><TD VALIGN=top><b>Г’ГҐГЄГ±ГІ:</B></TD><TD></TD></TR>
 		<TR><TD colspan=2><TEXTAREA NAME='text' COLS=55 ROWS=10 required></TEXTAREA></TD></TR>
 		<TR><TD VALIGN=top colspan=2>
-	<INPUT TYPE='submit' name='submit' value='Добавить' />
-        <INPUT TYPE='reset' value='Очистить'></TD></TR>
+	<INPUT TYPE='submit' name='submit' value='Г„Г®ГЎГ ГўГЁГІГј' />
+        <INPUT TYPE='reset' value='ГЋГ·ГЁГ±ГІГЁГІГј'></TD></TR>
  </FORM>  
 
 	</TABLE>	
@@ -140,16 +140,16 @@ echo '<p style="color:#135B00; text-align: center"><b>Документ успешно добавлен!
 					</TD><TD>
 				</TD></TR>
 
-		<TR><TD VALIGN=top><b>Номер документа:</B></TD><TD></TD></TR>
+		<TR><TD VALIGN=top><b>ГЌГ®Г¬ГҐГ° Г¤Г®ГЄГіГ¬ГҐГ­ГІГ :</B></TD><TD></TD></TR>
 		<TR><TD colspan=2><INPUT TYPE="TEXT" NAME='nomer' SIZE=75 required/></TD></TR>
 
-		<TR><TD VALIGN=top><b>Кому выдан документ:</B></TD><TD></TD></TR>
+		<TR><TD VALIGN=top><b>ГЉГ®Г¬Гі ГўГ»Г¤Г Г­ Г¤Г®ГЄГіГ¬ГҐГ­ГІ:</B></TD><TD></TD></TR>
 		<TR><TD colspan=2><INPUT TYPE="TEXT" NAME='name' SIZE=75/></TD></TR>
-		<TR><TD VALIGN=top><b>Текст:</B></TD><TD></TD></TR>
+		<TR><TD VALIGN=top><b>Г’ГҐГЄГ±ГІ:</B></TD><TD></TD></TR>
 		<TR><TD colspan=2><TEXTAREA NAME='text' COLS=55 ROWS=10 required></TEXTAREA></TD></TR>
 		<TR><TD VALIGN=top colspan=2>
-	<INPUT TYPE='submit' name='submit' value='Добавить' />
-        <INPUT TYPE='reset' value='Очистить'></TD></TR>
+	<INPUT TYPE='submit' name='submit' value='Г„Г®ГЎГ ГўГЁГІГј' />
+        <INPUT TYPE='reset' value='ГЋГ·ГЁГ±ГІГЁГІГј'></TD></TR>
  </FORM>  
 
 	</TABLE>	
@@ -160,32 +160,32 @@ echo '<p style="color:#135B00; text-align: center"><b>Документ успешно добавлен!
 <span class="table">
 	<TABLE CELLSPACING=3 CELLPADDING=2 width='400' align='center' border=0>
         <FORM ACTION='my_doks.php' method='post'>
-				<TR><TD VALIGN=top><b>Сан:</B></TD><TD></TD></TR>
+				<TR><TD VALIGN=top><b>Г‘Г Г­:</B></TD><TD></TD></TR>
 
 		<TR><TD VALIGN=top>
  <INPUT TYPE="HIDDEN" NAME="tematika" VALUE ="udostoverenie">
-		<input type='radio' name='san' value='диакона' checked id="diak"><label for="diak">диакона</label><br />
-		<input type='radio' name='san' value='пресвитера' id="ierei"><label for="ierei">пресвитера</label><br />
+		<input type='radio' name='san' value='Г¤ГЁГ ГЄГ®Г­Г ' checked id="diak"><label for="diak">Г¤ГЁГ ГЄГ®Г­Г </label><br />
+		<input type='radio' name='san' value='ГЇГ°ГҐГ±ГўГЁГІГҐГ°Г ' id="ierei"><label for="ierei">ГЇГ°ГҐГ±ГўГЁГІГҐГ°Г </label><br />
 
 					</TD><TD>
 				</TD></TR>
 
-		<TR><TD VALIGN=top><b>Номер документа:</B></TD><TD></TD></TR>
+		<TR><TD VALIGN=top><b>ГЌГ®Г¬ГҐГ° Г¤Г®ГЄГіГ¬ГҐГ­ГІГ :</B></TD><TD></TD></TR>
 		<TR><TD colspan=2><INPUT TYPE="TEXT" NAME='nomer' SIZE=75 required/></TD></TR>
 
-		<TR><TD VALIGN=top><b>Текст:</B></TD><TD></TD></TR>
+		<TR><TD VALIGN=top><b>Г’ГҐГЄГ±ГІ:</B></TD><TD></TD></TR>
 		<TR><TD colspan=2><TEXTAREA NAME='text' COLS=55 ROWS=10 required></TEXTAREA></TD></TR>
 		<TR><TD VALIGN=top colspan=2>
-	<INPUT TYPE='submit' name='submit' value='Добавить' />
-        <INPUT TYPE='reset' value='Очистить'></TD></TR>
+	<INPUT TYPE='submit' name='submit' value='Г„Г®ГЎГ ГўГЁГІГј' />
+        <INPUT TYPE='reset' value='ГЋГ·ГЁГ±ГІГЁГІГј'></TD></TR>
  </FORM>  
 
 	</TABLE>	
 
 </span>   
   		<hr />
-	<p><b>Правила оформления:</b></p>
-	<p><b>{{{http://ссылка}}}-{{{текст, который будет отображаться}}}</b> - активная ссылка. Ввод <b>http://</b> перед ссылкой обязателен. </p>
+	<p><b>ГЏГ°Г ГўГЁГ«Г  Г®ГґГ®Г°Г¬Г«ГҐГ­ГЁГї:</b></p>
+	<p><b>{{{http://Г±Г±Г»Г«ГЄГ }}}-{{{ГІГҐГЄГ±ГІ, ГЄГ®ГІГ®Г°Г»Г© ГЎГіГ¤ГҐГІ Г®ГІГ®ГЎГ°Г Г¦Г ГІГјГ±Гї}}}</b> - Г ГЄГІГЁГўГ­Г Гї Г±Г±Г»Г«ГЄГ . Г‚ГўГ®Г¤ <b>http://</b> ГЇГҐГ°ГҐГ¤ Г±Г±Г»Г«ГЄГ®Г© Г®ГЎГїГ§Г ГІГҐГ«ГҐГ­. </p>
   </div>
 </div>
 
