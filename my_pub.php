@@ -10,7 +10,7 @@ if ($auth!=1) {Header ("Location: my_auth.php");}
 <?
 include 'head.php';
 ?>
-<title>Äîáàâëåíèå ïóáëèêàöèé</title>
+<title>Добавление публикаций</title>
 
 </head>
 <body>
@@ -26,7 +26,7 @@ include 'content.php';
 ?>
 <div id="osnovnoe">
 
-<h1>Äîáàâëåíèå ïóáëèêàöèé</h1>
+<h1>Добавление публикаций</h1>
 
 <?php
     mysql_connect("localhost", "host1409556", "0f7cd928"); 
@@ -78,7 +78,7 @@ copy($_FILES['uploadfile']['tmp_name'], $uploadfile);
 	
 	imageresize($uploadfile,$uploadfile,900,900,100);
 	imageresize($uploadfile_mini,$uploadfile,130,130,100);
-###################### íîâîñòü äíÿ
+###################### новость дня
 function removedir ($directory){
 $dir = opendir($directory);
 while($file = readdir($dir))
@@ -98,7 +98,7 @@ imageresize($uploadfile_day,$uploadfile,200,200,100);
 
 #####################################
 }
-else {echo '<p style="color:RED; text-align: center">Íåâåðíîå ðàñøèðåíèå ôàéëà ôîòîãðàôèè<br />Äîïóñêàåòñÿ òîëüêî JPG-ôîðìàò.</p>'; $error = yes;}
+else {echo '<p style="color:RED; text-align: center">Неверное расширение файла фотографии<br />Допускается только JPG-формат.</p>'; $error = yes;}
 
 }
 else $b =NULL;
@@ -117,40 +117,42 @@ else $b =NULL;
 	   $url = 'pub_show';
 
 	   	   mysql_query("INSERT INTO host1409556_barysh.news VALUES ('$data', '$url', '$tema', '$kratko')");
-		<TR><TD colspan=2><TEXTAREA NAME='kratko' data-editor="rich" COLS=55 ROWS=5 required></TEXTAREA></TD></TR>
-		<TR><TD colspan=2><TEXTAREA NAME='news' data-editor="rich" COLS=55 ROWS=20 required></TEXTAREA></TD></TR>
+echo '<p style="color:#135B00; text-align: center"><b>Публикация успешно добавлена!</b></p><br />';
+}
 
 }
 
 ?>
 	<TABLE CELLSPACING=3 CELLPADDING=2 width='400' align='center' border=0>
         <FORM ACTION='my_pub.php' method='post' enctype=multipart/form-data>
-		<TR><TD VALIGN=top><b>Òåìà:</B></TD><TD></TD></TR>
+		<TR><TD VALIGN=top><b>Тема:</B></TD><TD></TD></TR>
 		<TR><TD colspan=2><INPUT TYPE="TEXT" NAME="tema" SIZE=70 required/></TD></TR>
 		<TR><TD>
 		<input type=file name="uploadfile"><br /><br />
 		</TD><TD></TD></TR>
-    	<TR><TD VALIGN=top><B>Êîðîòêî:</B></TD><TD></TD></TR>
-		<TR><TD colspan=2><TEXTAREA NAME='kratko' COLS=55 ROWS=5 required></TEXTAREA></TD></TR>
-    	<TR><TD VALIGN=top><B>Ñîáûòèå:</B></TD><TD></TD></TR>
+    	<TR><TD VALIGN=top><B>Коротко:</B></TD><TD></TD></TR>
+		<TR><TD colspan=2><TEXTAREA NAME='kratko' data-editor="rich" COLS=55 ROWS=5 required></TEXTAREA></TD></TR>
+    	<TR><TD VALIGN=top><B>:</B></TD><TD></TD></TR>
+		<TR><TD colspan=2><TEXTAREA NAME='news' data-editor="rich" COLS=55 ROWS=20 required></TEXTAREA></TD></TR>
+    	<TR><TD VALIGN=top><B>Событие:</B></TD><TD></TD></TR>
 		<TR><TD colspan=2><TEXTAREA NAME='news' COLS=55 ROWS=20 required></TEXTAREA></TD></TR>
-		<TR><TD VALIGN=top><B>Ôîòîàëüáîì</B> (íîìåðà ôîòîãðàôèé ÷åðåç ïðîáåë, áåç çíàêîâ ïðåïèíàíèÿ):</TD><TD></TD></TR>
+		<TR><TD VALIGN=top><B>Фотоальбом</B> (номера фотографий через пробел, без знаков препинания):</TD><TD></TD></TR>
 		<TR><TD colspan=2><TEXTAREA NAME='albom' COLS=55 ROWS=5></TEXTAREA></TD></TR>
 
 <TR><TD VALIGN=top colspan=2>
-	<INPUT TYPE='submit' name='submit' value='Äîáàâèòü' />
-        <INPUT TYPE='reset' value='Î÷èñòèòü'></TD></TR>
+	<INPUT TYPE='submit' name='submit' value='Добавить' />
+        <INPUT TYPE='reset' value='Очистить'></TD></TR>
  </FORM>  
 
 	</TABLE>	
 	<hr />
-	<p><b>Ïðàâèëà îôîðìëåíèÿ:</b></p>
-	<p><b>@R15-Êîììåíòàðèé@</b> - ôîòîãðàôèÿ, âûðîâíåííàÿ ïî ïðàâîìó êðàþ, ãäå öèôðà (15) - íîìåð ôîòîãðàôèè, êîìììåíòàðèé - êîìåíòàðèé ê ôîòîãðàôèè (ìîæåò îòñóòñòâîâàòü).</p>
-	<p><b>@L15-Êîììåíòàðèé@</b> - ôîòîãðàôèÿ, âûðîâíåííàÿ ïî ëåâîìó êðàþ, ãäå öèôðà (15) - íîìåð ôîòîãðàôèè, êîìììåíòàðèé - êîìåíòàðèé ê ôîòîãðàôèè (ìîæåò îòñóòñòâîâàòü).</p>
-	<p><b>|||ñëîâî|||</b> - âûäåëèòü òåêñò æèðíûì.</p>
-	<p><b>///ñëîâî///</b> - âûäåëèòü òåêñò êóðñèâîì.</p>
-	<p><b>[[[ñëîâî]]]</b> - òåêñò ïî öåíòðó.</p>
-	<p><b>{{{http://ññûëêà}}}-{{{òåêñò, êîòîðûé áóäåò îòîáðàæàòüñÿ}}}</b> - àêòèâíàÿ ññûëêà. Ââîä <b>http://</b> ïåðåä ññûëêîé îáÿçàòåëåí. </p>
+	<p><b>Правила оформления:</b></p>
+	<p><b>@R15-Комментарий@</b> - фотография, выровненная по правому краю, где цифра (15) - номер фотографии, коммментарий - коментарий к фотографии (может отсутствовать).</p>
+	<p><b>@L15-Комментарий@</b> - фотография, выровненная по левому краю, где цифра (15) - номер фотографии, коммментарий - коментарий к фотографии (может отсутствовать).</p>
+	<p><b>|||слово|||</b> - выделить текст жирным.</p>
+	<p><b>///слово///</b> - выделить текст курсивом.</p>
+	<p><b>[[[слово]]]</b> - текст по центру.</p>
+	<p><b>{{{http://ссылка}}}-{{{текст, который будет отображаться}}}</b> - активная ссылка. Ввод <b>http://</b> перед ссылкой обязателен. </p>
 
 </div>
 
