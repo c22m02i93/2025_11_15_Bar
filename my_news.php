@@ -10,7 +10,7 @@ if ($auth!=1) {Header ("Location: my_auth.php");}
 <?
 include 'head.php';
 ?>
-<title>Добавление новостей</title>
+<title>Г„Г®ГЎГ ГўГ«ГҐГ­ГЁГҐ Г­Г®ГўГ®Г±ГІГҐГ©</title>
 
 </head>
 <body>
@@ -26,7 +26,7 @@ include 'content.php';
 ?>
 <div id="osnovnoe">
 
-<h1>Добавление новостей</h1>
+		<TR><TD colspan=2><TEXTAREA NAME='news' data-editor="rich" COLS=55 ROWS=20 required></TEXTAREA></TD></TR>
 
 <?php
  $submit = $_POST['submit'];
@@ -37,16 +37,16 @@ if ($submit) {
     mysql_connect("localhost", "host1409556", "0f7cd928"); 
     mysql_query("SET NAMES 'cp1251'");
 	   mysql_query("INSERT INTO host1409556_barysh.news VALUES ('$data', '', '', '$news')");
-echo '<p style="color:#135B00; text-align: center"><b>Новость успешно добавлена!</b></p><br />';
+echo '<p style="color:#135B00; text-align: center"><b>ГЌГ®ГўГ®Г±ГІГј ГіГ±ГЇГҐГёГ­Г® Г¤Г®ГЎГ ГўГ«ГҐГ­Г !</b></p><br />';
 }
 ?>
 	<TABLE CELLSPACING=3 CELLPADDING=2 width='500' align='center' border=0>
         <FORM ACTION='<? echo 'my_news.php'; ?>' method='post'>
-    	<TR><TD VALIGN=top><B>Новость:</B></TD><TD></TD></TR>
+    	<TR><TD VALIGN=top><B>ГЌГ®ГўГ®Г±ГІГј:</B></TD><TD></TD></TR>
 		<TR><TD colspan=2><TEXTAREA NAME='news' COLS=55 ROWS=20 required></TEXTAREA></TD></TR>
 	<TR><TD colspan=2>
-	<INPUT TYPE='submit' name='submit' value='Добавить' />
-        <INPUT TYPE='reset' value='Очистить'></TD></TR>
+	<INPUT TYPE='submit' name='submit' value='Г„Г®ГЎГ ГўГЁГІГј' />
+        <INPUT TYPE='reset' value='ГЋГ·ГЁГ±ГІГЁГІГј'></TD></TR>
  </FORM>  
 
 	</TABLE>	

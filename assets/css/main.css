@@ -1,13 +1,12 @@
-body { color: #333232;  font-weight: normal; font-size: 15px; font-family: Georgia, Arial, "Times New Roman"; margin: 0 10%; background: #fff;
 }
 	a {text-decoration: none;  font-family: Arial, "Times New Roman"; font-weight: normal; color:#003399; }
 	a:hover {text-decoration:underline; color:#003399}
 	p {text-indent: 15px; margin: 0 10px 10px 10px; text-align: justify; font-weight: normal;}
 	p a {font-size: 14px; }
-	hr {border: none; /* Убираем границу для браузера Firefox */
-     color: #D7D7D7; /* Цвет линии для браузера Internet Explorer */
-     background-color: #D7D7D7; /* Цвет линии для браузера Firefox и Opera */
-     height: 1px; /* Толщина линии */
+	hr {border: none; /* Г“ГЎГЁГ°Г ГҐГ¬ ГЈГ°Г Г­ГЁГ¶Гі Г¤Г«Гї ГЎГ°Г ГіГ§ГҐГ°Г  Firefox */
+     color: #D7D7D7; /* Г–ГўГҐГІ Г«ГЁГ­ГЁГЁ Г¤Г«Гї ГЎГ°Г ГіГ§ГҐГ°Г  Internet Explorer */
+     background-color: #D7D7D7; /* Г–ГўГҐГІ Г«ГЁГ­ГЁГЁ Г¤Г«Гї ГЎГ°Г ГіГ§ГҐГ°Г  Firefox ГЁ Opera */
+     height: 1px; /* Г’Г®Г«Г№ГЁГ­Г  Г«ГЁГ­ГЁГЁ */
 	 width: 80%}
 
 .vid_ss a {color:#333232}
@@ -18,10 +17,10 @@ border: none;
 }
 #calendar {font-size: 95%; padding-bottom: 5px}
 .struktura  {
-width: 96%; /* Ширина */
-float: left; /* Блоки выстраиваются по горизонтали */
+width: 96%; /* ГГЁГ°ГЁГ­Г  */
+float: left; /* ГЃГ«Г®ГЄГЁ ГўГ»Г±ГІГ°Г ГЁГўГ ГѕГІГ±Гї ГЇГ® ГЈГ®Г°ГЁГ§Г®Г­ГІГ Г«ГЁ */
 
-margin: 0 3px 10px 0; /* Отступы */
+margin: 0 3px 10px 0; /* ГЋГІГ±ГІГіГЇГ» */
 padding-bottom: 5px;
 border-bottom: #C3D7D4 1px dotted;
 display: table-cell
@@ -71,7 +70,7 @@ h3 {font-size: 190%;font-weight: normal;
 font-family: 'Calibri Light', arial}
 
  #footer { 
-    clear: both; /* Отменяем действие float */
+    clear: both; /* ГЋГІГ¬ГҐГ­ГїГҐГ¬ Г¤ГҐГ©Г±ГІГўГЁГҐ float */
 	margin: 10px 0 0 0;
 		background: #999;
         color: #F8F7F7;
@@ -99,12 +98,12 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80); /* this works in IE
 #new_day p {font-size: 16px}
 
 .index_block {
-background: #fff; /* Цвет фона */
-padding: 5px; /* Поля вокруг */
-display: block; /* Блочный элемент */
-width: 46%; /* Ширина */
-float: left; /* Блоки выстраиваются по горизонтали */
-margin: 3px 3px 5px 3px; /* Отступы */
+background: #fff; /* Г–ГўГҐГІ ГґГ®Г­Г  */
+padding: 5px; /* ГЏГ®Г«Гї ГўГ®ГЄГ°ГіГЈ */
+display: block; /* ГЃГ«Г®Г·Г­Г»Г© ГЅГ«ГҐГ¬ГҐГ­ГІ */
+width: 46%; /* ГГЁГ°ГЁГ­Г  */
+float: left; /* ГЃГ«Г®ГЄГЁ ГўГ»Г±ГІГ°Г ГЁГўГ ГѕГІГ±Гї ГЇГ® ГЈГ®Г°ГЁГ§Г®Г­ГІГ Г«ГЁ */
+margin: 3px 3px 5px 3px; /* ГЋГІГ±ГІГіГЇГ» */
 border: none; 
 }
 	 h1 {font-family: 'Calibri Light', Arial;font-weight: normal;color: #393939; text-align: center;  font-size: 40px; margin: 5px 15px 7px 0; border-bottom: 5px solid #EDEEEF; padding: 0 0 5px 0
@@ -123,12 +122,12 @@ background: none; margin: -3px; padding: -3px; border-bottom: 5px solid #EAEAEA;
 h2 a:hover {text-decoration: none;color: #5C5C5C; opacity: 0.7}
 .index_block p {text-align: left;}
 .index_block_padre {
-background: #fff; /* Цвет фона */
-padding: 5px; /* Поля вокруг */
-display: block; /* Блочный элемент */
-width: 95%; /* Ширина */
-float: left; /* Блоки выстраиваются по горизонтали */
-margin: 3px 3px 5px 3px; /* Отступы */
+background: #fff; /* Г–ГўГҐГІ ГґГ®Г­Г  */
+padding: 5px; /* ГЏГ®Г«Гї ГўГ®ГЄГ°ГіГЈ */
+display: block; /* ГЃГ«Г®Г·Г­Г»Г© ГЅГ«ГҐГ¬ГҐГ­ГІ */
+width: 95%; /* ГГЁГ°ГЁГ­Г  */
+float: left; /* ГЃГ«Г®ГЄГЁ ГўГ»Г±ГІГ°Г ГЁГўГ ГѕГІГ±Гї ГЇГ® ГЈГ®Г°ГЁГ§Г®Г­ГІГ Г«ГЁ */
+margin: 3px 3px 5px 3px; /* ГЋГІГ±ГІГіГЇГ» */
 border: none; 
 }
  h2 {font-size: 150%;
@@ -209,18 +208,18 @@ margin-top: 0;
 display: block;
 display: none;
 
-/* ссылка над всеми элементами */
+/* Г±Г±Г»Г«ГЄГ  Г­Г Г¤ ГўГ±ГҐГ¬ГЁ ГЅГ«ГҐГ¬ГҐГ­ГІГ Г¬ГЁ */
 z-index: 999;
 
-/* ссылка не заслоняет полностью текст под ней */
+/* Г±Г±Г»Г«ГЄГ  Г­ГҐ Г§Г Г±Г«Г®Г­ГїГҐГІ ГЇГ®Г«Г­Г®Г±ГІГјГѕ ГІГҐГЄГ±ГІ ГЇГ®Г¤ Г­ГҐГ© */
 opacity: .8;
 text-decoration: underline;
-/* ссылка всегда на одном и том же месте */
+/* Г±Г±Г»Г«ГЄГ  ГўГ±ГҐГЈГ¤Г  Г­Г  Г®Г¤Г­Г®Г¬ ГЁ ГІГ®Г¬ Г¦ГҐ Г¬ГҐГ±ГІГҐ */
 position: fixed;
 font-family: Georgia, Arial, "Times New Roman";
-/* ссылка внизу страницы */
+/* Г±Г±Г»Г«ГЄГ  ГўГ­ГЁГ§Гі Г±ГІГ°Г Г­ГЁГ¶Г» */
 font-weight: none;
-/* ссылка по центру */
+/* Г±Г±Г»Г«ГЄГ  ГЇГ® Г¶ГҐГ­ГІГ°Гі */
  bottom: 20px; left: 20px
 }
 
@@ -449,3 +448,208 @@ z-index: 3;
 
 #menu li ul li:hover ul li, #menu li ul li.jshover ul li {
         display: block;}
+
+/* Sample4 legacy styles */
+address {
+	margin: 0px;
+	padding: 30px;
+	line-height: 1.0em;
+	font-size: 14px;
+	font-family: "Arial","Times New Roman",serif!important;
+}
+address,
+address a:link,
+address a:active,
+address a:visited,
+address a:hover {
+	color: #99c;
+}
+address a {
+	text-decoration: none;
+	border-bottom: 1px solid #ccd;
+}
+ul.photos {
+	padding: 0px;
+	margin: 0px auto;
+	text-align: left;
+	list-style: none;
+	width: 100%;	
+}
+ul.photos li {
+	display: inline;
+	width: 160px;
+	height: 160px;
+}
+ul.photos a.horizontal img,
+ul.photos a.effectable img {
+	padding:  10px;
+	
+
+}
+ul.photos a.vertical img {
+	padding: 0;	
+
+}
+/* Admin control panel tweaks */
+.admin-nav .link-disabled {
+    pointer-events: none;
+    cursor: default;
+    color: #999;
+}
+
+/* Calendar page link overrides */
+.calendar-page a {
+    text-decoration: none;
+    color: #222;
+}
+
+.calendar-page a:hover {
+    text-decoration: underline;
+    color: #888;
+}
+
+/* Search page layout fixes */
+#ya-site-results .b-wrapper {
+    clear: none;
+}
+
+/* Footer layout */
+:root {
+    --footer-bg: linear-gradient(180deg, #5e2a2a 0%, #3a1818 100%);
+    --footer-text: #eee;
+    --footer-link: #4ea3ff;
+    --footer-link-hover: #82c0ff;
+    --footer-border: rgba(255, 255, 255, 0.08);
+}
+
+#toTop {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    width: 44px;
+    height: 44px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #5a1626 0%, #380a15 100%);
+    color: #fff;
+    font-size: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    text-decoration: none;
+    z-index: 2000;
+    transition: 0.2s ease;
+}
+
+#toTop svg {
+    width: 20px;
+    height: 20px;
+    fill: #fff;
+}
+
+#toTop:hover {
+    background: #6c1a2f;
+    transform: scale(1.08);
+}
+
+#footer {
+    font-family: "Arial Narrow", sans-serif;
+    color: var(--footer-text);
+    margin-top: 40px;
+}
+
+.footer-shell {
+    background: var(--footer-bg);
+    border-top: 1px solid var(--footer-border);
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 48px 20px 24px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 28px;
+}
+
+.footer-col h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: var(--footer-text);
+}
+
+.footer-col a {
+    display: block;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--footer-link);
+    text-decoration: none;
+}
+
+.footer-col a:hover {
+    text-decoration: underline;
+    color: var(--footer-link-hover);
+}
+
+.footer-banners {
+    margin: 36px 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.footer-banners img {
+    width: 88px;
+    height: 31px;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    background: #fff;
+    padding: 2px;
+}
+
+.footer-bottom {
+    font-size: 14px;
+    text-align: center;
+    border-top: 1px solid var(--footer-border);
+    padding: 22px 10px 30px;
+    line-height: 1.7;
+    color: #ccc;
+}
+
+#footer [style*="float"] {
+    float: none !important;
+}
+
+#footer .footer-inner br {
+    display: none;
+}
+
+#footer .footer-bottom br {
+    display: inline;
+}
+
+@media (max-width: 600px) {
+    #toTop {
+        right: 12px;
+        width: 38px;
+        height: 38px;
+    }
+
+    .footer-inner {
+        padding: 36px 16px;
+    }
+}
+
+.news-photo {
+    border: 1px solid #C3D7D4;
+    margin: 5px 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    padding: 10px;
+}

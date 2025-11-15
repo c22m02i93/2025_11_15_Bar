@@ -10,7 +10,7 @@ if ($auth!=1) {Header ("Location: my_auth.php");}
 <?
 include 'head.php';
 ?>
-<title>Добавление слова архипастыря</title>
+<title>Г„Г®ГЎГ ГўГ«ГҐГ­ГЁГҐ Г±Г«Г®ГўГ  Г Г°ГµГЁГЇГ Г±ГІГ»Г°Гї</title>
 
 </head>
 <body>
@@ -26,7 +26,7 @@ include 'content.php';
 ?>
 <div id="osnovnoe">
 
-<h1>Добавление слова архипастыря</h1>
+<h1>Г„Г®ГЎГ ГўГ«ГҐГ­ГЁГҐ Г±Г«Г®ГўГ  Г Г°ГµГЁГЇГ Г±ГІГ»Г°Гї</h1>
 
 <?php
  $submit = $_POST['submit'];
@@ -65,7 +65,7 @@ $uploadfile = 'IMG/'.$b.$massiv_uploadfile[0][0];
 
 copy($_FILES['uploadfile']['tmp_name'], $uploadfile);
 
-	############## новость дня
+	############## Г­Г®ГўГ®Г±ГІГј Г¤Г­Гї
 	
 	function removedir ($directory){
 $dir = opendir($directory);
@@ -89,7 +89,7 @@ imageresize($uploadfile_day,$uploadfile,200,200,100);
 }
 else $uploadfile =NULL;
 
-#     Запись в базу
+#     Г‡Г ГЇГЁГ±Гј Гў ГЎГ Г§Гі
 
     mysql_connect("localhost", "host1409556", "0f7cd928"); 
 		   mysql_query("SET NAMES 'cp1251'");
@@ -104,7 +104,7 @@ else $uploadfile =NULL;
 
 
 	   if (preg_match_all ("/^[^\t]{350}/", $news, $massiv_news)) {
-	   $kratko = $massiv_news[0][0].'... <a href="slovo_padre_show.php?data='.$data.'">(читать далее)</a>';}
+		<TR><TD colspan=2><TEXTAREA NAME='news' data-editor="rich" COLS=55 ROWS=20></TEXTAREA></TD></TR>
 	   else $kratko = $news;
 	   	   mysql_query("UPDATE host1409556_barysh.news_day SET data='$data', oblozka='$b', tema='$tema', text='$kratko', page='slovo_padre'");
 
@@ -113,31 +113,31 @@ $url = 'slovo_padre_show';
 	   	   mysql_query("INSERT INTO host1409556_barysh.news VALUES ('$data', '$url', '$tema', '$kratko')");
 		   
 
-echo '<p style="color:#135B00; text-align: center"><b>Запись успешно добавлена!</b></p><br />';
+echo '<p style="color:#135B00; text-align: center"><b>Г‡Г ГЇГЁГ±Гј ГіГ±ГЇГҐГёГ­Г® Г¤Г®ГЎГ ГўГ«ГҐГ­Г !</b></p><br />';
 }
 ?>
 	<TABLE CELLSPACING=3 CELLPADDING=2 width='500' align='center' border=0>
         <FORM ACTION='<? echo 'my_padre.php'; ?>' method='post' enctype=multipart/form-data>
-				<TR><TD VALIGN=top><b>Картинка:</B></TD><TD></TD></TR>
+				<TR><TD VALIGN=top><b>ГЉГ Г°ГІГЁГ­ГЄГ :</B></TD><TD></TD></TR>
 		<TR><TD colspan=2><input type=file name=uploadfile></TD></TR>
 
-		<TR><TD VALIGN=top><b>Тема:</B></TD><TD></TD></TR>
+		<TR><TD VALIGN=top><b>Г’ГҐГ¬Г :</B></TD><TD></TD></TR>
 		<TR><TD colspan=2><INPUT TYPE="TEXT" NAME="tema" SIZE=70/></TD></TR>
-    	<TR><TD VALIGN=top><B>Текст:</B></TD><TD></TD></TR>
+    	<TR><TD VALIGN=top><B>Г’ГҐГЄГ±ГІ:</B></TD><TD></TD></TR>
 		<TR><TD colspan=2><TEXTAREA NAME='news' COLS=55 ROWS=20></TEXTAREA></TD></TR>
 	<TR><TD colspan=2>
-	<INPUT TYPE='submit' name='submit' value='Добавить' />
-        <INPUT TYPE='reset' value='Очистить'></TD></TR>
+	<INPUT TYPE='submit' name='submit' value='Г„Г®ГЎГ ГўГЁГІГј' />
+        <INPUT TYPE='reset' value='ГЋГ·ГЁГ±ГІГЁГІГј'></TD></TR>
  </FORM>  
 
 	</TABLE>	
 	<hr />
-	<p><b>Правила оформления:</b></p>
-	<p><b>|||слово|||</b> - выделить текст жирным.</p>
-	<p><b>///слово///</b> - выделить текст курсивом.</p>
-	<p><b>[[[слово]]]</b> - текст по центру.</p>
-	<p><b>{{{Мф. 1:1}}}</b> - Библейская ссылка.</p>
-	<p><b>http://ссылка</b> - активная ссылка. Ввод <b>http://</b> перед ссылкой обязателен. </p>
+	<p><b>ГЏГ°Г ГўГЁГ«Г  Г®ГґГ®Г°Г¬Г«ГҐГ­ГЁГї:</b></p>
+	<p><b>|||Г±Г«Г®ГўГ®|||</b> - ГўГ»Г¤ГҐГ«ГЁГІГј ГІГҐГЄГ±ГІ Г¦ГЁГ°Г­Г»Г¬.</p>
+	<p><b>///Г±Г«Г®ГўГ®///</b> - ГўГ»Г¤ГҐГ«ГЁГІГј ГІГҐГЄГ±ГІ ГЄГіГ°Г±ГЁГўГ®Г¬.</p>
+	<p><b>[[[Г±Г«Г®ГўГ®]]]</b> - ГІГҐГЄГ±ГІ ГЇГ® Г¶ГҐГ­ГІГ°Гі.</p>
+	<p><b>{{{ГЊГґ. 1:1}}}</b> - ГЃГЁГЎГ«ГҐГ©Г±ГЄГ Гї Г±Г±Г»Г«ГЄГ .</p>
+	<p><b>http://Г±Г±Г»Г«ГЄГ </b> - Г ГЄГІГЁГўГ­Г Гї Г±Г±Г»Г«ГЄГ . Г‚ГўГ®Г¤ <b>http://</b> ГЇГҐГ°ГҐГ¤ Г±Г±Г»Г«ГЄГ®Г© Г®ГЎГїГ§Г ГІГҐГ«ГҐГ­. </p>
 
 </div>
 

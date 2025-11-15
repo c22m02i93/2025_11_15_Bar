@@ -10,7 +10,7 @@ if ($auth!=1) {Header ("Location: my_auth.php");}
 <?
 include 'head.php';
 ?>
-<title>Добавление выпуска газеты</title>
+<title>Г„Г®ГЎГ ГўГ«ГҐГ­ГЁГҐ ГўГ»ГЇГіГ±ГЄГ  ГЈГ Г§ГҐГІГ»</title>
 
 </head>
 <body>
@@ -26,7 +26,7 @@ include 'content.php';
 ?>
 <div id="osnovnoe">
 
-<h1>Добавление выпуска газеты</h1>
+<h1>Г„Г®ГЎГ ГўГ«ГҐГ­ГЁГҐ ГўГ»ГЇГіГ±ГЄГ  ГЈГ Г§ГҐГІГ»</h1>
 
 <?php
  $submit = $_POST['submit'];
@@ -47,42 +47,42 @@ $xx = mysql_query("SELECT * FROM host1409556_barysh.gazeta WHERE year=$year");
 $a = mysql_num_rows($xx);
 $a= $a+1;
 $no = "$a ($b)";
-$tema = '"Моя епархия" № '.$no.' '.$month;
+$tema = '"ГЊГ®Гї ГҐГЇГ Г°ГµГЁГї" В№ '.$no.' '.$month;
 	   mysql_query("INSERT INTO host1409556_barysh.gazeta VALUES ('', '$data', '$year', '$month', '$no', '$text')");
 	   	   if ($new_day_add == 'yes') {
 		   $url = 'gazeta_show'; 
-		   $kratko = 'Добавлен очередной номер газеты "Моя епархия".';
+		   $kratko = 'Г„Г®ГЎГ ГўГ«ГҐГ­ Г®Г·ГҐГ°ГҐГ¤Г­Г®Г© Г­Г®Г¬ГҐГ° ГЈГ Г§ГҐГІГ» "ГЊГ®Гї ГҐГЇГ Г°ГµГЁГї".';
 	   	   mysql_query("INSERT INTO host1409556_barysh.news VALUES ('$data', '$url', '$tema', '$kratko')");
 }
-echo '<p style="color:#135B00; text-align: center"><b>Газета успешно добавлена!</b></p><br />';
+		<TR><TD colspan=2><TEXTAREA NAME='text' data-editor="rich" COLS=55 ROWS=20></TEXTAREA></TD></TR>
 }
 ?>
 	<TABLE CELLSPACING=3 CELLPADDING=2 width='400' align='center' border=0>
         <FORM ACTION='<? echo 'my_gazeta.php'; ?>' method='post'>
-		<TR><TD VALIGN=top><b>Месяц:</B></TD><TD></TD></TR>
+		<TR><TD VALIGN=top><b>ГЊГҐГ±ГїГ¶:</B></TD><TD></TD></TR>
 		<TR><TD colspan=2>
 				<select name='month' size=1>
-		<option value=январь <? if (Date("m") == '01') echo 'selected';?> >январь</option>
-		<option value=февраль <? if (Date("m") == '02') echo 'selected';?>>февраль</option>
-		<option value=март <? if (Date("m") == '03') echo 'selected';?>>март</option>
-		<option value=апрель <? if (Date("m") == '04') echo 'selected';?>>апрель</option>
-		<option value=май <? if (Date("m") == '05') echo 'selected';?>>май</option>
-		<option value=июнь <? if (Date("m") == '06') echo 'selected';?>>июнь</option>
-		<option value=июль <? if (Date("m") == '07') echo 'selected';?>>июль</option>
-		<option value=август <? if (Date("m") == '08') echo 'selected';?>>август</option>
-		<option value=сентябрь <? if (Date("m") == '09') echo 'selected';?>>сентябрь</option>
-		<option value=октябрь <? if (Date("m") == '10') echo 'selected';?>>октябрь</option>
-		<option value=ноябрь <? if (Date("m") == '11') echo 'selected';?>>ноябрь</option>
-		<option value=декабрь <? if (Date("m") == '12') echo 'selected';?>>декабрь</option>
+		<option value=ГїГ­ГўГ Г°Гј <? if (Date("m") == '01') echo 'selected';?> >ГїГ­ГўГ Г°Гј</option>
+		<option value=ГґГҐГўГ°Г Г«Гј <? if (Date("m") == '02') echo 'selected';?>>ГґГҐГўГ°Г Г«Гј</option>
+		<option value=Г¬Г Г°ГІ <? if (Date("m") == '03') echo 'selected';?>>Г¬Г Г°ГІ</option>
+		<option value=Г ГЇГ°ГҐГ«Гј <? if (Date("m") == '04') echo 'selected';?>>Г ГЇГ°ГҐГ«Гј</option>
+		<option value=Г¬Г Г© <? if (Date("m") == '05') echo 'selected';?>>Г¬Г Г©</option>
+		<option value=ГЁГѕГ­Гј <? if (Date("m") == '06') echo 'selected';?>>ГЁГѕГ­Гј</option>
+		<option value=ГЁГѕГ«Гј <? if (Date("m") == '07') echo 'selected';?>>ГЁГѕГ«Гј</option>
+		<option value=Г ГўГЈГіГ±ГІ <? if (Date("m") == '08') echo 'selected';?>>Г ГўГЈГіГ±ГІ</option>
+		<option value=Г±ГҐГ­ГІГїГЎГ°Гј <? if (Date("m") == '09') echo 'selected';?>>Г±ГҐГ­ГІГїГЎГ°Гј</option>
+		<option value=Г®ГЄГІГїГЎГ°Гј <? if (Date("m") == '10') echo 'selected';?>>Г®ГЄГІГїГЎГ°Гј</option>
+		<option value=Г­Г®ГїГЎГ°Гј <? if (Date("m") == '11') echo 'selected';?>>Г­Г®ГїГЎГ°Гј</option>
+		<option value=Г¤ГҐГЄГ ГЎГ°Гј <? if (Date("m") == '12') echo 'selected';?>>Г¤ГҐГЄГ ГЎГ°Гј</option>
 		</select>
 		</TD></TR>
-    	<TR><TD VALIGN=top><B>Код:</B></TD><TD></TD></TR>
+    	<TR><TD VALIGN=top><B>ГЉГ®Г¤:</B></TD><TD></TD></TR>
 		<TR><TD colspan=2><TEXTAREA NAME='text' COLS=55 ROWS=20></TEXTAREA></TD></TR>
-			<TR><TD colspan=2><INPUT TYPE="CHECKBOX" NAME="new_day_add" VALUE ="yes" id="new_day"> <label for="new_day"><b>Выводить в новостях</b></label></TD></TR>
+			<TR><TD colspan=2><INPUT TYPE="CHECKBOX" NAME="new_day_add" VALUE ="yes" id="new_day"> <label for="new_day"><b>Г‚Г»ГўГ®Г¤ГЁГІГј Гў Г­Г®ГўГ®Г±ГІГїГµ</b></label></TD></TR>
 
 	<TR><TD colspan=2>
-	<INPUT TYPE='submit' name='submit' value='Добавить' />
-        <INPUT TYPE='reset' value='Очистить'></TD></TR>
+	<INPUT TYPE='submit' name='submit' value='Г„Г®ГЎГ ГўГЁГІГј' />
+        <INPUT TYPE='reset' value='ГЋГ·ГЁГ±ГІГЁГІГј'></TD></TR>
  </FORM>  
 
 	</TABLE>	
