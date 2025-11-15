@@ -1,8 +1,8 @@
 <?
-if (isset($_REQUEST[session_name()])) session_start ();
-$auth=$_SESSION['auth'];
-$name_user=$_SESSION['name_user'];
-if ($auth!=1) {Header ("Location: my_auth.php");}
+if (isset($_REQUEST[session_name()])) session_start();
+$auth = $_SESSION['auth'];
+$name_user = $_SESSION['name_user'];
+if ($auth != 1) { Header("Location: my_auth.php"); }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -10,7 +10,7 @@ if ($auth!=1) {Header ("Location: my_auth.php");}
 <?
 include 'head.php';
 ?>
-<title>Äîáàâëåíèå àíîíñîâ è îáúÿâëåíèé</title>
+<title>Добавление анонсов и объявлений</title>
 
 </head>
 <body>
@@ -18,145 +18,155 @@ include 'head.php';
 <div style="box-shadow: 0 0 20px rgba(0,0,0,0.5);">
 <?
 include 'golova.php';
-
 include 'menu.php';
-
 include 'content.php';
-
 ?>
 <div id="osnovnoe">
 
-<h1>Äîáàâëåíèå àíîíñîâ è îáúÿâëåíèé</h1>
+<h1>Добавление анонсов и объявлений</h1>
 
 <?php
- $submit = $_POST['submit'];
+$submit = $_POST['submit'];
 if ($submit) {
- $news = $_POST['news'];
- $tema = $_POST['tema'];
- $when = $_POST['when'];
- $name_albom = $_POST['name_albom'];
- $data = Date("Y.m.d H:i");
-   $kratko = $_POST['kratko'];
-   mysql_connect("localhost", "host1409556", "0f7cd928"); 
-   mysql_query("SET NAMES 'cp1251'");
-  $new_day_add = $_POST['new_day_add'];
+    $news = $_POST['news'];
+    $tema = $_POST['tema'];
+    $when = $_POST['when'];
+    $name_albom = $_POST['name_albom'];
+    $data = Date("Y.m.d H:i");
+    $kratko = $_POST['kratko'];
+    mysql_connect("localhost", "host1409556", "0f7cd928"); 
+    mysql_query("SET NAMES 'cp1251'");
+    $new_day_add = $_POST['new_day_add'];
 
 #######3
 function imageresize($outfile,$infile,$neww,$newh,$quality) {
-    $im=imagecreatefromjpeg($infile);
-    $k1=$neww/imagesx($im);
-    $k2=$newh/imagesy($im);
-    $k=$k1>$k2?$k2:$k1;
+    $im = imagecreatefromjpeg($infile);
+    $k1 = $neww / imagesx($im);
+    $k2 = $newh / imagesy($im);
+    $k = $k1 > $k2 ? $k2 : $k1;
 
-    $w=intval(imagesx($im)*$k);
-    $h=intval(imagesy($im)*$k);
+    $w = intval(imagesx($im) * $k);
+    $h = intval(imagesy($im) * $k);
 
-    $im1=imagecreatetruecolor($w,$h);
-    imagecopyresampled($im1,$im,0,0,0,0,$w,$h,imagesx($im),imagesy($im));
+    $im1 = imagecreatetruecolor($w, $h);
+    imagecopyresampled($im1, $im, 0, 0, 0, 0, $w, $h, imagesx($im), imagesy($im));
 
-    imagejpeg($im1,$outfile,$quality);
+    imagejpeg($im1, $outfile, $quality);
     imagedestroy($im);
     imagedestroy($im1);
-    }	
+}	
 ################
 
-if(is_uploaded_file($_FILES['uploadfile']['tmp_name']))  {
+if (is_uploaded_file($_FILES['uploadfile']['tmp_name'])) {
 
-	$foto_col = mysql_query("SELECT * FROM host1409556_barysh.foto_col");
-	$foto_col = mysql_fetch_array($foto_col);
-	$b=$foto_col[nomer]+1;
-	mysql_query("UPDATE  host1409556_barysh.foto_col SET nomer='$b'");
+    $foto_col = mysql_query("SELECT * FROM host1409556_barysh.foto_col");
+    $foto_col = mysql_fetch_array($foto_col);
+    $b = $foto_col['nomer'] + 1;
+    mysql_query("UPDATE host1409556_barysh.foto_col SET nomer='$b'");
 
-preg_match_all ("/(\.\w+)$/", $_FILES['uploadfile']['name'], $massiv_uploadfile);
+    preg_match_all("/(\.\w+)$/", $_FILES['uploadfile']['name'], $massiv_uploadfile);
 
-$massiv_uploadfile[0][0]=strtolower($massiv_uploadfile[0][0]);
-if ($massiv_uploadfile[0][0] == ".jpeg") $massiv_uploadfile[0][0] = ".jpg";
-if ($massiv_uploadfile[0][0] == ".jpg") {
-$uploadfile = 'FOTO/'.$b.$massiv_uploadfile[0][0];
-$uploadfile_mini = 'FOTO_MINI/'.$b.$massiv_uploadfile[0][0];
+    $massiv_uploadfile[0][0] = strtolower($massiv_uploadfile[0][0]);
+    if ($massiv_uploadfile[0][0] == ".jpeg") $massiv_uploadfile[0][0] = ".jpg";
 
-copy($_FILES['uploadfile']['tmp_name'], $uploadfile);
-	
-	imageresize($uploadfile,$uploadfile,900,900,100);
-	imageresize($uploadfile_mini,$uploadfile,130,130,100);
-###################### íîâîñòü äíÿ
-if ($new_day_add == 'yes') {
-function removedir ($directory){
-$dir = opendir($directory);
-while($file = readdir($dir))
-{if ( is_file ($directory."/".$file))
-{unlink ($directory."/".$file);}
-else if ( is_dir ($directory."/".$file) && ($file != ".") && ($file != ".."))
-{removedir ($directory."/".$file);}}
-closedir ($dir);
-rmdir ($directory);
-return TRUE;}
+    if ($massiv_uploadfile[0][0] == ".jpg") {
 
-removedir ('DAY');
-mkdir('DAY', 0755, true);
+        $uploadfile = 'FOTO/' . $b . $massiv_uploadfile[0][0];
+        $uploadfile_mini = 'FOTO_MINI/' . $b . $massiv_uploadfile[0][0];
 
-$uploadfile_day = 'DAY/'.$b.'.jpg';
-imageresize($uploadfile_day,$uploadfile,200,200,100);
-}
+        copy($_FILES['uploadfile']['tmp_name'], $uploadfile);
+
+        imageresize($uploadfile, $uploadfile, 900, 900, 100);
+        imageresize($uploadfile_mini, $uploadfile, 130, 130, 100);
+
+###################### новость дня
+        if ($new_day_add == 'yes') {
+
+            function removedir($directory){
+                $dir = opendir($directory);
+                while($file = readdir($dir)) {
+                    if (is_file($directory."/".$file)) {
+                        unlink($directory."/".$file);
+                    } else if (is_dir($directory."/".$file) && ($file != ".") && ($file != "..")) {
+                        removedir($directory."/".$file);
+                    }
+                }
+                closedir($dir);
+                rmdir($directory);
+                return TRUE;
+            }
+
+            removedir('DAY');
+            mkdir('DAY', 0755, true);
+
+            $uploadfile_day = 'DAY/'.$b.'.jpg';
+            imageresize($uploadfile_day, $uploadfile, 200, 200, 100);
+        }
 #####################################
 
-}
-else {echo '<p style="color:RED; text-align: center">Íåâåðíîå ðàñøèðåíèå ôàéëà ôîòîãðàôèè<br />Äîïóñêàåòñÿ òîëüêî JPG-ôîðìàò.</p>'; $error = yes;}
+    } else {
+        echo '<p style="color:RED; text-align: center">Неверное расширение файла фотографии<br />Допускается только JPG-формат.</p>';
+        $error = yes;
+    }
 
-}
-else $b =NULL;
+} else $b = NULL;
 
 #################
-    if (empty($error)) {
-	mysql_connect("localhost", "host1409556", "0f7cd928"); 
-	$p_msg = array ('/\"/', '/\'/');
-	$r_msg = array ('&quot;', '&#039;');
-	$tema = preg_replace($p_msg, $r_msg, $tema);
+if (empty($error)) {
+    mysql_connect("localhost", "host1409556", "0f7cd928"); 
 
-	   mysql_query("INSERT INTO host1409556_barysh.anons VALUES ('$when', '$data', '$b', '$tema', '$kratko', '$news', '$name_albom', '0')");
-	   	   if ($new_day_add == 'yes') {
-	   mysql_query("UPDATE host1409556_barysh.news_day SET data='$data', oblozka='$b', tema='$tema', text='$kratko', page='anons'");
-}
+    $p_msg = array('/\"/', '/\'/');
+    $r_msg = array('&quot;', '&#039;');
+    $tema = preg_replace($p_msg, $r_msg, $tema);
 
-	   	   $url = 'anons_show';
+    mysql_query("INSERT INTO host1409556_barysh.anons VALUES ('$when', '$data', '$b', '$tema', '$kratko', '$news', '$name_albom', '0')");
 
-	   	   mysql_query("INSERT INTO host1409556_barysh.news VALUES ('$data', '$url', '$tema', '$kratko')");
-		<TR><TD colspan=2><TEXTAREA NAME='kratko' data-editor="rich" COLS=55 ROWS=5 required></TEXTAREA></TD></TR>
-		<TR><TD colspan=2><TEXTAREA NAME='news' data-editor="rich" COLS=55 ROWS=20 required></TEXTAREA></TD></TR>
+    if ($new_day_add == 'yes') {
+        mysql_query("UPDATE host1409556_barysh.news_day SET data='$data', oblozka='$b', tema='$tema', text='$kratko', page='anons'");
+    }
 
+    $url = 'anons_show';
+
+    mysql_query("INSERT INTO host1409556_barysh.news VALUES ('$data', '$url', '$tema', '$kratko')");
 }
 
 ?>
-	<TABLE CELLSPACING=3 CELLPADDING=2 width='400' align='center' border=0>
-        <FORM ACTION='<? echo 'my_anons.php'; ?>' method='post' enctype=multipart/form-data>
-		<TR><TD VALIGN=top><b>Äàòà ñîáûòèÿ</B> (â ñâîáîäíîì ôîðìàòå):</TD><TD></TD></TR>
-		<TR><TD colspan=2><INPUT TYPE="TEXT" NAME="when" SIZE=35 required/></TD></TR>
+<TABLE CELLSPACING=3 CELLPADDING=2 width='400' align='center' border=0>
+    <FORM ACTION='<? echo "my_anons.php"; ?>' method='post' enctype="multipart/form-data">
+        <TR><TD VALIGN=top><b>Дата события</b> (в свободном формате):</TD><TD></TD></TR>
+        <TR><TD colspan=2><INPUT TYPE="text" NAME="when" SIZE=35 required/></TD></TR>
 
-		<TR><TD VALIGN=top><b>Òåìà:</B></TD><TD></TD></TR>
-		<TR><TD colspan=2><INPUT TYPE="TEXT" NAME="tema" SIZE=70 required/></TD></TR>
-		<TR><TD>
-		<input type=file name="uploadfile"><br /><br />
-		</TD><TD></TD></TR>
-    	    	<TR><TD VALIGN=top><B>Êîðîòêî:</B></TD><TD></TD></TR>
-		<TR><TD colspan=2><TEXTAREA NAME='kratko' COLS=55 ROWS=5 required></TEXTAREA></TD></TR>
-<TR><TD VALIGN=top><B>Ñîáûòèå:</B></TD><TD></TD></TR>
-		<TR><TD colspan=2><TEXTAREA NAME='news' COLS=55 ROWS=20 required></TEXTAREA></TD></TR>
-				</TD></TR>
-				<TR><TD colspan=2><INPUT TYPE="CHECKBOX" NAME="new_day_add" VALUE ="yes" id="new_day"> <label for="new_day"><b>Íîâîñòü äíÿ</b></label></TD></TR>
-				
-				<TR><TD VALIGN=top colspan=2>
-	<INPUT TYPE='submit' name='submit' value='Äîáàâèòü' />
-        <INPUT TYPE='reset' value='Î÷èñòèòü'></TD></TR>
- </FORM>  
+        <TR><TD VALIGN=top><b>Тема:</b></TD><TD></TD></TR>
+        <TR><TD colspan=2><INPUT TYPE="text" NAME="tema" SIZE=70 required/></TD></TR>
 
-	</TABLE>
-		<hr />
-	<p><b>Ïðàâèëà îôîðìëåíèÿ:</b></p>
-	<p><b>@R15-Êîììåíòàðèé@</b> - ôîòîãðàôèÿ, âûðîâíåííàÿ ïî ïðàâîìó êðàþ, ãäå öèôðà (15) - íîìåð ôîòîãðàôèè, êîìììåíòàðèé - êîìåíòàðèé ê ôîòîãðàôèè (ìîæåò îòñóòñòâîâàòü).</p>
-	<p><b>@L15-Êîììåíòàðèé@</b> - ôîòîãðàôèÿ, âûðîâíåííàÿ ïî ëåâîìó êðàþ, ãäå öèôðà (15) - íîìåð ôîòîãðàôèè, êîìììåíòàðèé - êîìåíòàðèé ê ôîòîãðàôèè (ìîæåò îòñóòñòâîâàòü).</p>
-	<p><b>|||ñëîâî|||</b> - âûäåëèòü òåêñò æèðíûì.</p>
-	<p><b>///ñëîâî///</b> - âûäåëèòü òåêñò êóðñèâîì.</p>
-	<p><b>{{{http://ññûëêà}}}-{{{òåêñò, êîòîðûé áóäåò îòîáðàæàòüñÿ}}}</b> - àêòèâíàÿ ññûëêà. Ââîä <b>http://</b> ïåðåä ññûëêîé îáÿçàòåëåí. </p>
+        <TR><TD><input type="file" name="uploadfile"><br /><br /></TD><TD></TD></TR>
+
+        <TR><TD VALIGN=top><b>Коротко:</b></TD><TD></TD></TR>
+        <TR><TD colspan=2><TEXTAREA NAME='kratko' COLS=55 ROWS=5 required></TEXTAREA></TD></TR>
+
+        <TR><TD VALIGN=top><b>Событие:</b></TD><TD></TD></TR>
+        <TR><TD colspan=2><TEXTAREA NAME='news' COLS=55 ROWS=20 required></TEXTAREA></TD></TR>
+
+        <TR><TD colspan=2>
+            <INPUT TYPE="checkbox" NAME="new_day_add" VALUE="yes" id="new_day">
+            <label for="new_day"><b>Новость дня</b></label>
+        </TD></TR>
+
+        <TR><TD colspan=2>
+            <INPUT TYPE='submit' name='submit' value='Добавить' />
+            <INPUT TYPE='reset' value='Очистить'>
+        </TD></TR>
+    </FORM>
+</TABLE>
+
+<hr />
+
+<p><b>Правила оформления:</b></p>
+<p><b>@R15-Комментарий@</b> — фотография, выровненная по правому краю; 15 — номер фото.</p>
+<p><b>@L15-Комментарий@</b> — фотография, выровненная по левому краю.</p>
+<p><b>|||слово|||</b> — выделить жирным.</p>
+<p><b>///слово///</b> — выделить курсивом.</p>
+<p><b>{{{http://ссылка}}}-{{{текст}}}</b> — активная ссылка (http:// обязательно).</p>
 
 </div>
 
@@ -164,6 +174,6 @@ else $b =NULL;
 include 'footer.php';
 ?>
 
- </div>
+</div>
 </body>
 </html>
