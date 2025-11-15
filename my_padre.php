@@ -10,7 +10,7 @@ if ($auth!=1) {Header ("Location: my_auth.php");}
 <?
 include 'head.php';
 ?>
-<title>Äîáàâëåíèå ñëîâà àðõèïàñòûðÿ</title>
+<title>Добавление слова архипастыря</title>
 
 </head>
 <body>
@@ -26,7 +26,7 @@ include 'content.php';
 ?>
 <div id="osnovnoe">
 
-<h1>Äîáàâëåíèå ñëîâà àðõèïàñòûðÿ</h1>
+<h1>Добавление слова архипастыря</h1>
 
 <?php
  $submit = $_POST['submit'];
@@ -65,7 +65,7 @@ $uploadfile = 'IMG/'.$b.$massiv_uploadfile[0][0];
 
 copy($_FILES['uploadfile']['tmp_name'], $uploadfile);
 
-	############## íîâîñòü äíÿ
+	############## новость дня
 	
 	function removedir ($directory){
 $dir = opendir($directory);
@@ -89,7 +89,7 @@ imageresize($uploadfile_day,$uploadfile,200,200,100);
 }
 else $uploadfile =NULL;
 
-#     Çàïèñü â áàçó
+#     Запись в базу
 
     mysql_connect("localhost", "host1409556", "0f7cd928"); 
 		   mysql_query("SET NAMES 'cp1251'");
@@ -104,7 +104,7 @@ else $uploadfile =NULL;
 
 
 	   if (preg_match_all ("/^[^\t]{350}/", $news, $massiv_news)) {
-		<TR><TD colspan=2><TEXTAREA NAME='news' data-editor="rich" COLS=55 ROWS=20></TEXTAREA></TD></TR>
+	   $kratko = $massiv_news[0][0].'... <a href="slovo_padre_show.php?data='.$data.'">(читать далее)</a>';}
 	   else $kratko = $news;
 	   	   mysql_query("UPDATE host1409556_barysh.news_day SET data='$data', oblozka='$b', tema='$tema', text='$kratko', page='slovo_padre'");
 
@@ -113,31 +113,31 @@ $url = 'slovo_padre_show';
 	   	   mysql_query("INSERT INTO host1409556_barysh.news VALUES ('$data', '$url', '$tema', '$kratko')");
 		   
 
-echo '<p style="color:#135B00; text-align: center"><b>Çàïèñü óñïåøíî äîáàâëåíà!</b></p><br />';
+echo '<p style="color:#135B00; text-align: center"><b>Запись успешно добавлена!</b></p><br />';
 }
 ?>
 	<TABLE CELLSPACING=3 CELLPADDING=2 width='500' align='center' border=0>
         <FORM ACTION='<? echo 'my_padre.php'; ?>' method='post' enctype=multipart/form-data>
-				<TR><TD VALIGN=top><b>Êàðòèíêà:</B></TD><TD></TD></TR>
+				<TR><TD VALIGN=top><b>Картинка:</B></TD><TD></TD></TR>
 		<TR><TD colspan=2><input type=file name=uploadfile></TD></TR>
 
-		<TR><TD VALIGN=top><b>Òåìà:</B></TD><TD></TD></TR>
+		<TR><TD VALIGN=top><b>Тема:</B></TD><TD></TD></TR>
 		<TR><TD colspan=2><INPUT TYPE="TEXT" NAME="tema" SIZE=70/></TD></TR>
-    	<TR><TD VALIGN=top><B>Òåêñò:</B></TD><TD></TD></TR>
-		<TR><TD colspan=2><TEXTAREA NAME='news' COLS=55 ROWS=20></TEXTAREA></TD></TR>
+    	<TR><TD VALIGN=top><B>Текст:</B></TD><TD></TD></TR>
+		TR><TD colspan=2><TEXTAREA NAME='news' data-editor="rich" COLS=55 ROWS=20></TEXTAREA></TD></TR>
 	<TR><TD colspan=2>
-	<INPUT TYPE='submit' name='submit' value='Äîáàâèòü' />
-        <INPUT TYPE='reset' value='Î÷èñòèòü'></TD></TR>
+	<INPUT TYPE='submit' name='submit' value='Добавить' />
+        <INPUT TYPE='reset' value='Очистить'></TD></TR>
  </FORM>  
 
 	</TABLE>	
 	<hr />
-	<p><b>Ïðàâèëà îôîðìëåíèÿ:</b></p>
-	<p><b>|||ñëîâî|||</b> - âûäåëèòü òåêñò æèðíûì.</p>
-	<p><b>///ñëîâî///</b> - âûäåëèòü òåêñò êóðñèâîì.</p>
-	<p><b>[[[ñëîâî]]]</b> - òåêñò ïî öåíòðó.</p>
-	<p><b>{{{Ìô. 1:1}}}</b> - Áèáëåéñêàÿ ññûëêà.</p>
-	<p><b>http://ññûëêà</b> - àêòèâíàÿ ññûëêà. Ââîä <b>http://</b> ïåðåä ññûëêîé îáÿçàòåëåí. </p>
+	<p><b>Правила оформления:</b></p>
+	<p><b>|||слово|||</b> - выделить текст жирным.</p>
+	<p><b>///слово///</b> - выделить текст курсивом.</p>
+	<p><b>[[[слово]]]</b> - текст по центру.</p>
+	<p><b>{{{Мф. 1:1}}}</b> - Библейская ссылка.</p>
+	<p><b>http://ссылка</b> - активная ссылка. Ввод <b>http://</b> перед ссылкой обязателен. </p>
 
 </div>
 
