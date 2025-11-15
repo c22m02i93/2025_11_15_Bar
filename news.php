@@ -36,21 +36,36 @@ else{
   if($p < 1) $p = 1;
 }
 $num_elements = 10;
-$total = mysql_result(mysql_query("SELECT COUNT(*) FROM host1409556_barysh.news_eparhia"),0,0); //Подсчет общего числа записей
-$num_pages = ceil($total / $num_elements); //Подсчет числа страниц
+$cutoff = "2025-11-01 00:00:00";
+$total_local = mysql_result(mysql_query("SELECT COUNT(*) FROM host1409556_barysh.news_eparhia"),0,0);
+$total_external = mysql_result(mysql_query("SELECT COUNT(*) FROM host1409556_barysh.news_mitropolia WHERE section='barysh_tag' AND data >= '$cutoff'"),0,0);
+$total = $total_local + $total_external;
+$num_pages = $total > 0 ? ceil($total / $num_elements) : 1;
 if ($p > $num_pages) $p = $num_pages;
-$start = ($p - 1) * $num_elements; //Стартовая позиция выборки из БД
-                    
-					
+if ($p < 1) $p = 1;
+$start = ($p - 1) * $num_elements;
+if ($start < 0) $start = 0;
+
   echo GetNav($p, $num_pages, "news").'<hr style="width: 100%" />';
-            $sel = "SELECT * FROM host1409556_barysh.news_eparhia ORDER BY data DESC LIMIT ".$start.", ".$num_elements;
+            $sel = "
+                SELECT * FROM (
+                    SELECT data, tema, kratko, oblozka, video, views, NULL AS link, 'local' AS source
+                    FROM host1409556_barysh.news_eparhia
+                UNION ALL
+                    SELECT data, tema, kratko, oblozka, NULL AS video, NULL AS views, link, 'mitropolia' AS source
+                    FROM host1409556_barysh.news_mitropolia
+                    WHERE section='barysh_tag' AND data >= '$cutoff'
+                ) AS u
+                ORDER BY data DESC
+                LIMIT $start, $num_elements
+            ";
             $query = mysql_query($sel);
             if(mysql_num_rows($query)>0){
 
-			while($res = mysql_fetch_array($query)){
+			while($row = mysql_fetch_assoc($query)){
 
 
-$dtn = $res[data]; 
+$dtn = $row['data'];
 $yyn = substr($dtn,0,4); // Год
 $mmn = substr($dtn,5,2); // Месяц
 $ddn = substr($dtn,8,2); // День
@@ -79,22 +94,50 @@ if ($ddn == "07") $ddn="7";
 if ($ddn == "08") $ddn="8";
 if ($ddn == "09") $ddn="9";
 
-$hours = substr($dtn,11,5); // Время 
+$hours = substr($dtn,11,5); // Время
 
 $ddttn = '<span class="date">'.$ddn.' '.$mm1n.' '.$yyn.' г. '.$hours.'</span>'; // Конечный вид строки
 
-	$patterns = array ('/(?:\{{3})(http:\/\/[^\s\[<\(\)\|]+)(?:\}{3})-(?:\{{3})([^}]+)(?:\}{3})/i', '/\n/', '/(?:\/{3})/', '/(?:\|{3})/', '/@[^@]+@/', '/(?:\{{3})/', '/(?:\}{3})/');
-	$replace = array ('${2}', '</p><p>', '', '', '', '', '');
-	$text = preg_replace($patterns, $replace, $res[kratko]);
+        $patterns = array ('/(?:\{{3})(http:\/\/[^\s\[<\(\)\|]+)(?:\}{3})-(?:\{{3})([^}]+)(?:\}{3})/i', '/\n/', '/(?:\/{3})/', '/(?:\|{3})/', '/@[^@]+@/', '/(?:\{{3})/', '/(?:\}{3})/');
+        $replace = array ('${2}', '</p><p>', '', '', '', '', '');
+        $text = $row['kratko'];
+        if ($row['source'] == 'local') {
+            $text = preg_replace($patterns, $replace, $text);
+        } else {
+            $text = nl2br($text);
+        }
 
-echo '<div style="float: left; margin-bottom: 10px; border-bottom: 1px #D7D7D7 solid"><div class="block_title"><span class="title"><a href="news_show.php?data='.$res[data].'">'.$res[tema].'</a></span><br />'.$ddttn;
- if ($res['video']) echo '<span style="color: #777"> (+ Видео)</span>';
+$title_link = ($row['source'] == 'local') ? 'news_show.php?data='.$row['data'] : $row['link'];
+$target = ($row['source'] == 'local') ? '_self' : '_blank';
+
+echo '<div style="float: left; margin-bottom: 10px; border-bottom: 1px #D7D7D7 solid"><div class="block_title"><span class="title"><a href="'.$title_link.'" target="'.$target.'">'.$row['tema'].'</a></span><br />'.$ddttn;
+ if ($row['source'] == 'local' && $row['video']) echo '<span style="color: #777"> (+ Видео)</span>';
+ if ($row['source'] == 'mitropolia') echo '<span style="color: #777"> (митрополия)</span>';
 
 echo '</div><div>';
+        if ($row['oblozka']) {
+            if ($row['source'] == 'local') {
+                $img_url = 'FOTO_MINI/'.$row['oblozka'].'.jpg';
+            } else {
+                if (strpos($row['oblozka'], 'http') === 0) {
+                    $img_url = $row['oblozka'];
+                } elseif (strpos($row['oblozka'], '//') === 0) {
+                    $img_url = 'https:'.$row['oblozka'];
+                } else {
+                    $img_url = 'https://mitropolia-simbirsk.ru'.$row['oblozka'];
+                }
+            }
+            echo '<div><a href="'.$title_link.'" target="'.$target.'"><img style="box-shadow: 2px 2px 5px rgba(0,0,0,0.3); display: inline;float: left;border: 1px solid #C3D7D4; margin: 0 10px 5px 10px; padding: 10px; max-width: 130px; max-height: 130px; width: auto; height: auto;" src="'.$img_url.'" /></a></div>';
+        }
 
-if ($res[oblozka]) echo '<div><img style="box-shadow: 2px 2px 5px rgba(0,0,0,0.3); display: inline;float: left;border: 1px solid #C3D7D4; margin: 0 10px 5px 10px; padding: 10px" src="FOTO_MINI/'.$res[oblozka].'.jpg" /></div>';
+        $info_line = '';
+        if ($row['source'] == 'local') {
+            $info_line = '<span class="views">Просмотров: '.$row['views'].'.<br /><br /></span>';
+        } else {
+            $info_line = '<span class="views">: .<br /><br /></span>';
+        }
 
-echo '<div style="margin-right: 5px"><p>'.$text.'</p><div class="zakladka" style="margin: 0 0 0 20px"><span class="views">Просмотров: '.$res[views].'.<br /><br /></span></div></div></div></div>';
+echo '<div style="margin-right: 5px"><p>'.$text.'</p><div class="zakladka" style="margin: 0 0 0 20px">'.$info_line.'</div></div></div></div>';
 }
 }
 

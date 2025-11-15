@@ -1,21 +1,21 @@
 <?php
 /**
- * Парсер mitropolia-simbirsk.ru -> host1409556_barysh.news_mitropolia
+ * ГЏГ Г°Г±ГҐГ° mitropolia-simbirsk.ru -> host1409556_barysh.news_mitropolia
  *
- * Оптимизированная версия:
- *  - минимальная нагрузка на CPU/сеть
- *  - не дёргает лишний раз удалённый сайт
- *  - не скачивает повторно изображения, если запись уже есть
- *  - ограничение общего времени выполнения скрипта
+ * ГЋГЇГІГЁГ¬ГЁГ§ГЁГ°Г®ГўГ Г­Г­Г Гї ГўГҐГ°Г±ГЁГї:
+ *  - Г¬ГЁГ­ГЁГ¬Г Г«ГјГ­Г Гї Г­Г ГЈГ°ГіГ§ГЄГ  Г­Г  CPU/Г±ГҐГІГј
+ *  - Г­ГҐ Г¤ВёГ°ГЈГ ГҐГІ Г«ГЁГёГ­ГЁГ© Г°Г Г§ ГіГ¤Г Г«ВёГ­Г­Г»Г© Г±Г Г©ГІ
+ *  - Г­ГҐ Г±ГЄГ Г·ГЁГўГ ГҐГІ ГЇГ®ГўГІГ®Г°Г­Г® ГЁГ§Г®ГЎГ°Г Г¦ГҐГ­ГЁГї, ГҐГ±Г«ГЁ Г§Г ГЇГЁГ±Гј ГіГ¦ГҐ ГҐГ±ГІГј
+ *  - Г®ГЈГ°Г Г­ГЁГ·ГҐГ­ГЁГҐ Г®ГЎГ№ГҐГЈГ® ГўГ°ГҐГ¬ГҐГ­ГЁ ГўГ»ГЇГ®Г«Г­ГҐГ­ГЁГї Г±ГЄГ°ГЁГЇГІГ 
  */
 
 error_reporting(E_ALL ^ E_NOTICE);
-ini_set('display_errors', 0); // в кроне нам не нужен вывод ворнингов
+ini_set('display_errors', 0); // Гў ГЄГ°Г®Г­ГҐ Г­Г Г¬ Г­ГҐ Г­ГіГ¦ГҐГ­ ГўГ»ГўГ®Г¤ ГўГ®Г°Г­ГЁГ­ГЈГ®Гў
 header('Content-Type: text/plain; charset=utf-8');
 
-/* ==== Ограничение общего времени работы скрипта ==== */
+/* ==== ГЋГЈГ°Г Г­ГЁГ·ГҐГ­ГЁГҐ Г®ГЎГ№ГҐГЈГ® ГўГ°ГҐГ¬ГҐГ­ГЁ Г°Г ГЎГ®ГІГ» Г±ГЄГ°ГЁГЇГІГ  ==== */
 $script_start = microtime(true);
-$max_runtime  = 20; // максимум 20 секунд на весь парсинг
+$max_runtime  = 20; // Г¬Г ГЄГ±ГЁГ¬ГіГ¬ 20 Г±ГҐГЄГіГ­Г¤ Г­Г  ГўГҐГ±Гј ГЇГ Г°Г±ГЁГ­ГЈ
 
 function check_runtime_limit($start, $max) {
     if (microtime(true) - $start > $max) {
@@ -25,29 +25,29 @@ function check_runtime_limit($start, $max) {
     return false;
 }
 
-/* ==== БД ==== */
+/* ==== ГЃГ„ ==== */
 $db_host = "localhost";
 $db_user = "host1409556";
 $db_pass = "0f7cd928";
 $db_name = "host1409556_barysh";
 $table   = "news_mitropolia";
 
-/* ==== Файлы ==== */
+/* ==== Г”Г Г©Г«Г» ==== */
 $upload_dir = __DIR__ . "/uploads/mitropolia";
 $upload_url = "/uploads/mitropolia";
 
-/* ==== RSS-источники ==== */
+/* ==== RSS-ГЁГ±ГІГ®Г·Г­ГЁГЄГЁ ==== */
 $feeds = array(
     "barysh_tag" => "https://mitropolia-simbirsk.ru/tag/baryshskaya-eparhiya/feed/",
     "arhipastry" => "https://mitropolia-simbirsk.ru/category/mitropoliya/arhipastyrskoe-sluzhenie/feed/",
     "slovo"      => "https://mitropolia-simbirsk.ru/category/mitropolit/slovo-arhipastyrya/feed/",
 );
 
-/* ==== Функции ==== */
+/* ==== Г”ГіГ­ГЄГ¶ГЁГЁ ==== */
 
 /**
- * Быстрый HTTP GET с небольшими таймаутами,
- * чтобы не зависать и не грузить систему.
+ * ГЃГ»Г±ГІГ°Г»Г© HTTP GET Г± Г­ГҐГЎГ®Г«ГјГёГЁГ¬ГЁ ГІГ Г©Г¬Г ГіГІГ Г¬ГЁ,
+ * Г·ГІГ®ГЎГ» Г­ГҐ Г§Г ГўГЁГ±Г ГІГј ГЁ Г­ГҐ ГЈГ°ГіГ§ГЁГІГј Г±ГЁГ±ГІГҐГ¬Гі.
  */
 function http_get($url){
     if(function_exists('curl_init')){
@@ -55,31 +55,65 @@ function http_get($url){
         curl_setopt_array($ch, array(
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_CONNECTTIMEOUT => 3,  // раньше было 15
-            CURLOPT_TIMEOUT        => 5,  // раньше было 30
+            CURLOPT_CONNECTTIMEOUT => 3,  // Г°Г Г­ГјГёГҐ ГЎГ»Г«Г® 15
+            CURLOPT_TIMEOUT        => 5,  // Г°Г Г­ГјГёГҐ ГЎГ»Г«Г® 30
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_USERAGENT      => "BaryshParser/1.2",
             CURLOPT_FAILONERROR    => true,
         ));
         $data = curl_exec($ch);
         if($data === false){
-            // можно залогировать curl_error($ch) при необходимости
+            // Г¬Г®Г¦Г­Г® Г§Г Г«Г®ГЈГЁГ°Г®ГўГ ГІГј curl_error($ch) ГЇГ°ГЁ Г­ГҐГ®ГЎГµГ®Г¤ГЁГ¬Г®Г±ГІГЁ
             curl_close($ch);
             return '';
         }
         curl_close($ch);
         return $data;
     }
-    // file_get_contents пусть будет запасным вариантом
-    $ctx = stream_context_create(array(
-        'http' => array(
-            'timeout' => 5
-        )
-    ));
-    return @file_get_contents($url, false, $ctx);
+$page_html_cache = array();
+
+function fetch_page_html($url){
+    global $page_html_cache;
+    if(!$url) return '';
+    if(isset($page_html_cache[$url])) return $page_html_cache[$url];
+    $html = http_get($url);
+    if(!$html) $html = '';
+    $page_html_cache[$url] = $html;
+    return $html;
 }
 
-function ensure_dir($p){
+function extract_featured_image($html){
+    if(!$html) return '';
+
+    if(preg_match('/<meta[^>]+property=["\']og:image:secure_url["\'][^>]+content=["\']([^"\']+)/i',$html,$m))
+        return $m[1];
+
+    if(preg_match('/<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)/i',$html,$m))
+        return $m[1];
+
+    if(preg_match('/<meta[^>]+name=["\']twitter:image["\'][^>]+content=["\']([^"\']+)/i',$html,$m))
+        return $m[1];
+
+    if(preg_match('/<link[^>]+rel=["\']image_src["\'][^>]+href=["\']([^"\']+)/i',$html,$m))
+        return $m[1];
+
+    if(preg_match('/"image"\s*:\s*\{[^}]*"url"\s*:\s*"([^"\\]+)"/i',$html,$m))
+        return $m[1];
+
+    if(preg_match('/"image"\s*:\s*"([^"\\]+)"/i',$html,$m))
+        return $m[1];
+
+    if(preg_match('/<img[^>]+class=["\'][^"\']*(?:wp-post-image|attachment-(?:full|large)|wp-block-post-featured-image)[^"\']*["\'][^>]+src=["\']([^"\']+)/i',$html,$m))
+        return $m[1];
+
+    if(preg_match('/<figure[^>]+class=["\'][^"\']*wp-block-post-featured-image[^"\']*["\'][^>]*>.*?<img[^>]+src=["\']([^"\']+)/is',$html,$m))
+        return $m[1];
+
+    return extract_first_img_src($html);
+}
+
+    $html = fetch_page_html($url);
+    return extract_featured_image($html);
     if(!is_dir($p)) @mkdir($p,0755,true);
 }
 
@@ -118,8 +152,8 @@ function extract_first_img_src($html){
 }
 
 /**
- * Получить og:image / twitter:image / первую картинку.
- * Использует http_get с короткими тайм-аутами.
+ * ГЏГ®Г«ГіГ·ГЁГІГј og:image / twitter:image / ГЇГҐГ°ГўГіГѕ ГЄГ Г°ГІГЁГ­ГЄГі.
+ * Г€Г±ГЇГ®Г«ГјГ§ГіГҐГІ http_get Г± ГЄГ®Г°Г®ГІГЄГЁГ¬ГЁ ГІГ Г©Г¬-Г ГіГІГ Г¬ГЁ.
  */
 function fetch_og_image($url){
     $html = http_get($url);
@@ -136,8 +170,8 @@ function fetch_og_image($url){
 }
 
 /**
- * Скачать и сохранить картинку локально.
- * Не вызывается, если в БД уже есть обложка.
+ * Г‘ГЄГ Г·Г ГІГј ГЁ Г±Г®ГµГ°Г Г­ГЁГІГј ГЄГ Г°ГІГЁГ­ГЄГі Г«Г®ГЄГ Г«ГјГ­Г®.
+ * ГЌГҐ ГўГ»Г§Г»ГўГ ГҐГІГ±Гї, ГҐГ±Г«ГЁ Гў ГЃГ„ ГіГ¦ГҐ ГҐГ±ГІГј Г®ГЎГ«Г®Г¦ГЄГ .
  */
 function save_image_local($img_url, $upload_dir, $prefix='img'){
     $img_url = absolute_url($img_url);
@@ -151,7 +185,7 @@ function save_image_local($img_url, $upload_dir, $prefix='img'){
     ensure_dir($upload_dir);
 
     $bin = http_get($img_url);
-    if(!$bin || strlen($bin) < 512) return ''; // меньше 512 байт — мусор
+    if(!$bin || strlen($bin) < 512) return ''; // Г¬ГҐГ­ГјГёГҐ 512 ГЎГ Г©ГІ вЂ” Г¬ГіГ±Г®Г°
 
     @file_put_contents(rtrim($upload_dir,'/').'/'.$name, $bin);
     return $name;
@@ -161,18 +195,18 @@ function str_truncate($text, $limit){
     $text = trim($text);
     if(function_exists('mb_strlen')){
         if(mb_strlen($text,'UTF-8') <= $limit) return $text;
-        return mb_substr($text,0,$limit,'UTF-8').'…';
+        return mb_substr($text,0,$limit,'UTF-8').'вЂ¦';
     }
     if(strlen($text) <= $limit) return $text;
-    return substr($text,0,$limit).'…';
+    return substr($text,0,$limit).'вЂ¦';
 }
 
-/* ==== БД ==== */
+/* ==== ГЃГ„ ==== */
 mysql_connect($db_host,$db_user,$db_pass) or die("DB connect error");
 mysql_select_db($db_name) or die("DB select error");
 mysql_query("SET NAMES 'utf8'");
 
-/* ==== Таблица ==== */
+/* ==== Г’Г ГЎГ«ГЁГ¶Г  ==== */
 mysql_query("CREATE TABLE IF NOT EXISTS `$table` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `tema` VARCHAR(255) NOT NULL,
@@ -185,25 +219,25 @@ mysql_query("CREATE TABLE IF NOT EXISTS `$table` (
   UNIQUE KEY `u_link` (`link`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8");
 
-/* ==== Кэш ==== */
+/* ==== ГЉГЅГё ==== */
 $cache_dir = __DIR__.'/cache_mitropolia';
-$cache_ttl = 600; // было 300, теперь 10 минут — меньше запросов к RSS
+$cache_ttl = 600; // ГЎГ»Г«Г® 300, ГІГҐГЇГҐГ°Гј 10 Г¬ГЁГ­ГіГІ вЂ” Г¬ГҐГ­ГјГёГҐ Г§Г ГЇГ°Г®Г±Г®Гў ГЄ RSS
 ensure_dir($cache_dir);
 
 $total_new = 0;
 $total_upd = 0;
 
-/* фильтр по дате */
+/* ГґГЁГ«ГјГІГ° ГЇГ® Г¤Г ГІГҐ */
 $cutoff_ts = strtotime("2025-11-01 00:00:00");
 
-/* ======= ОСНОВНОЙ ЦИКЛ ======= */
+/* ======= ГЋГ‘ГЌГЋГ‚ГЌГЋГ‰ Г–Г€ГЉГ‹ ======= */
 foreach($feeds as $section=>$rss_url){
 
     if(check_runtime_limit($script_start, $max_runtime)){
         break;
     }
 
-    // для "slovo" принудительно сбрасываем кэш (как и было)
+    // Г¤Г«Гї "slovo" ГЇГ°ГЁГ­ГіГ¤ГЁГІГҐГ«ГјГ­Г® Г±ГЎГ°Г Г±Г»ГўГ ГҐГ¬ ГЄГЅГё (ГЄГ ГЄ ГЁ ГЎГ»Г«Г®)
     if($section === 'slovo'){
         $cf = $cache_dir.'/'.md5($rss_url).'.xml';
         if(file_exists($cf)) @unlink($cf);
@@ -239,7 +273,7 @@ foreach($feeds as $section=>$rss_url){
     foreach($items as $item){
 
         if(check_runtime_limit($script_start, $max_runtime)){
-            break 2; // выходим и из цикла по фидам тоже
+            break 2; // ГўГ»ГµГ®Г¤ГЁГ¬ ГЁ ГЁГ§ Г¶ГЁГЄГ«Г  ГЇГ® ГґГЁГ¤Г Г¬ ГІГ®Г¦ГҐ
         }
 
         $title = trim((string)$item->title);
@@ -258,13 +292,13 @@ foreach($feeds as $section=>$rss_url){
 
         $ts = $pub ? strtotime($pub) : time();
         if($ts < $cutoff_ts){
-            // RSS обычно отсортирован по дате, дальше только старьё
+            // RSS Г®ГЎГ»Г·Г­Г® Г®ГІГ±Г®Г°ГІГЁГ°Г®ГўГ Г­ ГЇГ® Г¤Г ГІГҐ, Г¤Г Г«ГјГёГҐ ГІГ®Г«ГјГЄГ® Г±ГІГ Г°ГјВё
             break;
         }
 
         $date = date("Y-m-d H:i:s",$ts);
 
-        // СРАЗУ проверяем, есть ли такая запись в БД
+        // Г‘ГђГЂГ‡Г“ ГЇГ°Г®ГўГҐГ°ГїГҐГ¬, ГҐГ±ГІГј Г«ГЁ ГІГ ГЄГ Гї Г§Г ГЇГЁГ±Гј Гў ГЃГ„
         $e_link = mysql_real_escape_string($link);
         $q = mysql_query("SELECT id, oblozka, kratko, data FROM `$table` WHERE link='$e_link' LIMIT 1");
         $row = $q ? mysql_fetch_assoc($q) : null;
@@ -274,49 +308,40 @@ foreach($feeds as $section=>$rss_url){
             $has_kratko  = !empty($row['kratko']) && strlen($row['kratko']) >= 50;
             $is_fresh    = strtotime($row['data']) >= $ts;
 
-            // если у нас УЖЕ есть обложка, нормальное краткое и дата не старее —
-            // вообще ничего не делаем по этой новости
-            if($has_oblozka && $has_kratko && $is_fresh){
-                continue;
+        $page_html = '';
+            $page_html = fetch_page_html($link);
+            if($page_html){
+                $img = extract_featured_image($page_html);
+        if(!$img && !empty($ns['media'])){
+            $m = $item->children($ns['media']);
+            if($m && $m->content && $m->content->attributes()){
+                $attr = $m->content->attributes();
+                if($attr['url']) $img = (string)$attr['url'];
+        }
+        if(!$img && !empty($ns['media'])){
+            if(!isset($m)) $m = $item->children($ns['media']);
+            if($m && $m->thumbnail && $m->thumbnail->attributes()){
+                $attr = $m->thumbnail->attributes();
+                if($attr['url']) $img = (string)$attr['url'];
+        }
+        if(!$img && $item->enclosure && $item->enclosure['url']){
+            $img = (string)$item->enclosure['url'];
+        }
+        if(!$img && $link){
+            if(!$page_html) $page_html = fetch_page_html($link);
+            if($page_html){
+                $img = extract_featured_image($page_html);
+        }
+        if(!$img && $link){
+            if(!$page_html) $page_html = fetch_page_html($link);
+            if($page_html){
+                $img = extract_first_img_src($page_html);
             }
         }
 
-        // Если мы здесь — либо записи нет, либо не хватает данных.
-        // Достаём description / full.
-        $desc = (string)$item->description;
-        $full = '';
-        if(!empty($ns['content'])){
-            $c = $item->children($ns['content']);
-            if($c && $c->encoded) $full = (string)$c->encoded;
-        }
-
-        /* === КАРТИНКА === */
-        $img = '';
-
-        // barysh_tag: фото ТОЛЬКО со страницы
-        if($section === 'barysh_tag' && $link){
-            $img = fetch_og_image($link);
-            if(!$img){
-                $html_page = http_get($link);
-                if($html_page){
-                    $img = extract_first_img_src($html_page);
-                }
-            }
-        }
-
-        // Общая логика (если не barysh_tag)
         if(!$img){
-
-            // 1) og:image
-            if($link){
-                $img = fetch_og_image($link);
-            }
-
-            // 2) media:content
-            if(!$img && !empty($ns['media'])){
-                $m = $item->children($ns['media']);
-                if($m && $m->content && $m->content->attributes()){
-                    $attr = $m->content->attributes();
+            $img = extract_first_img_src($full);
+            if(!$img) $img = extract_first_img_src($desc);
                     if($attr['url']) $img = (string)$attr['url'];
                 }
             }
@@ -334,7 +359,7 @@ foreach($feeds as $section=>$rss_url){
                 $img = (string)$item->enclosure['url'];
             }
 
-            // 5) первая картинка из полного HTML
+            // 5) ГЇГҐГ°ГўГ Гї ГЄГ Г°ГІГЁГ­ГЄГ  ГЁГ§ ГЇГ®Г«Г­Г®ГЈГ® HTML
             if(!$img && $link){
                 $html_page = http_get($link);
                 if($html_page){
@@ -342,7 +367,7 @@ foreach($feeds as $section=>$rss_url){
                 }
             }
 
-            // 6) крайний случай — контент RSS
+            // 6) ГЄГ°Г Г©Г­ГЁГ© Г±Г«ГіГ·Г Г© вЂ” ГЄГ®Г­ГІГҐГ­ГІ RSS
             if(!$img){
                 $img = extract_first_img_src($full);
                 if(!$img) $img = extract_first_img_src($desc);
@@ -351,7 +376,7 @@ foreach($feeds as $section=>$rss_url){
 
         $img = absolute_url($img);
 
-        /* Краткое описание */
+        /* ГЉГ°Г ГІГЄГ®ГҐ Г®ГЇГЁГ±Г Г­ГЁГҐ */
         $plain = trim(strip_tags($desc ? $desc : $full));
         $plain = preg_replace('/\s+/u', ' ', $plain);
         $plain = str_truncate($plain, 600);
@@ -363,15 +388,15 @@ foreach($feeds as $section=>$rss_url){
 
         $oblozka_local = '';
 
-        // Скачиваем картинку ТОЛЬКО если:
-        //  - есть URL картинки
-        //  - и либо записи нет, либо у неё пустая обложка
+        // Г‘ГЄГ Г·ГЁГўГ ГҐГ¬ ГЄГ Г°ГІГЁГ­ГЄГі Г’ГЋГ‹ГњГЉГЋ ГҐГ±Г«ГЁ:
+        //  - ГҐГ±ГІГј URL ГЄГ Г°ГІГЁГ­ГЄГЁ
+        //  - ГЁ Г«ГЁГЎГ® Г§Г ГЇГЁГ±ГЁ Г­ГҐГІ, Г«ГЁГЎГ® Гі Г­ГҐВё ГЇГіГ±ГІГ Гї Г®ГЎГ«Г®Г¦ГЄГ 
         if($img && (!$row || empty($row['oblozka']))){
             $fname = save_image_local($img, $upload_dir, $section);
             if($fname) $oblozka_local = $upload_url.'/'.$fname;
         }
 
-        /* ——— UPDATE / INSERT ——— */
+        /* вЂ”вЂ”вЂ” UPDATE / INSERT вЂ”вЂ”вЂ” */
         if($row){
             $set = array("`data`='$e_date'", "`tema`='$e_tema'", "`section`='$e_sec'");
 
