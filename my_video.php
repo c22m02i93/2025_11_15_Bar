@@ -10,7 +10,7 @@ if ($auth!=1) {Header ("Location: my_auth.php");}
 <?
 include 'head.php';
 ?>
-<title>Äîáàâëåíèå âèäåî</title>
+<title>Добавление видео</title>
 
 </head>
 <body>
@@ -26,7 +26,7 @@ include 'content.php';
 ?>
 <div id="osnovnoe">
 
-<h1>Äîáàâëåíèå âèäåî</h1>
+<h1>Добавление видео</h1>
 
 <?php
  $submit = $_POST['submit'];
@@ -44,23 +44,23 @@ if ($submit) {
 	   mysql_query("INSERT INTO host1409556_barysh.video VALUES ('', '$data', '$tema', '$news')");
 	   	   if ($new_day_add == 'yes') {
 		   $url = 'video'; 
-		<TR><TD colspan=2><TEXTAREA NAME='news' data-editor="rich" COLS=55 ROWS=20 required></TEXTAREA></TD></TR>
+		   $kratko = 'Добавлено видео.';
 	   	   mysql_query("INSERT INTO host1409556_barysh.news VALUES ('$data', '$url', '$tema', '$kratko')");
 }
-echo '<p style="color:#135B00; text-align: center"><b>Âèäåî óñïåøíî äîáàâëåíî!</b></p><br />';
+echo '<p style="color:#135B00; text-align: center"><b>Видео успешно добавлено!</b></p><br />';
 }
 ?>
 	<TABLE CELLSPACING=3 CELLPADDING=2 width='500' align='center' border=0>
         <FORM ACTION='<? echo 'my_video.php'; ?>' method='post'>
-    			<TR><TD VALIGN=top><b>Òåìà:</B></TD><TD></TD></TR>
+    			<TR><TD VALIGN=top><b>Тема:</B></TD><TD></TD></TR>
 		<TR><TD colspan=2><INPUT TYPE="TEXT" NAME="tema" SIZE=70 required/></TD></TR>
-<TR><TD VALIGN=top><B>Êîä:</B></TD><TD></TD></TR>
-		<TR><TD colspan=2><TEXTAREA NAME='news' COLS=55 ROWS=20 required></TEXTAREA></TD></TR>
-	<TR><TD colspan=2><INPUT TYPE="CHECKBOX" NAME="new_day_add" VALUE ="yes" id="new_day"> <label for="new_day"><b>Âûâîäèòü â íîâîñòÿõ</b></label></TD></TR>
+<TR><TD VALIGN=top><B>Код:</B></TD><TD></TD></TR>
+		<TR><TD colspan=2><TEXTAREA NAME='news' data-editor="rich" COLS=55 ROWS=20 required></TEXTAREA></TD></TR>
+	<TR><TD colspan=2><INPUT TYPE="CHECKBOX" NAME="new_day_add" VALUE ="yes" id="new_day"> <label for="new_day"><b>Выводить в новостях</b></label></TD></TR>
 
 	<TR><TD colspan=2>
-	<INPUT TYPE='submit' name='submit' value='Äîáàâèòü' />
-        <INPUT TYPE='reset' value='Î÷èñòèòü'></TD></TR>
+	<INPUT TYPE='submit' name='submit' value='Добавить' />
+        <INPUT TYPE='reset' value='Очистить'></TD></TR>
  </FORM>  
 
 	</TABLE>	
