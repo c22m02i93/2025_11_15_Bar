@@ -124,7 +124,7 @@ echo '<p style="color:#135B00; text-align: center"><b>Запись успешн�
 		<TR><TD VALIGN=top><b>Тема:</B></TD><TD></TD></TR>
 		<TR><TD colspan=2><INPUT TYPE="TEXT" NAME="tema" SIZE=70/></TD></TR>
     	<TR><TD VALIGN=top><B>Текст:</B></TD><TD></TD></TR>
-		TR><TD colspan=2><TEXTAREA NAME='news' data-editor="rich" COLS=55 ROWS=20></TEXTAREA></TD></TR>
+		<TR><TD colspan=2><TEXTAREA NAME='news' data-editor="rich" COLS=55 ROWS=20></TEXTAREA></TD></TR>
 	<TR><TD colspan=2>
 	<INPUT TYPE='submit' name='submit' value='Добавить' />
         <INPUT TYPE='reset' value='Очистить'></TD></TR>
