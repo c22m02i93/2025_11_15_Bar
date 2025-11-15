@@ -7,7 +7,7 @@ $name_user = $_SESSION['name_user'];
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <?php include 'head.php'; ?>
-<title>Слово архипастыря</title>
+<title>Г‘Г«Г®ГўГ® Г Г°ГµГЁГЇГ Г±ГІГ»Г°Гї</title>
 </head>
 <body>
 <div style="box-shadow: 0 0 20px rgba(0,0,0,0.5);">
@@ -20,21 +20,21 @@ include 'content.php';
 ?>
 
 <div id="osnovnoe">
-<h1>Слово архипастыря</h1>
+<h1>Г‘Г«Г®ГўГ® Г Г°ГµГЁГЇГ Г±ГІГ»Г°Гї</h1>
 <?php
-// Настройки
+// ГЌГ Г±ГІГ°Г®Г©ГЄГЁ
 $num_elements = 10;
 $table = "host1409556_barysh.news_mitropolia";
 $section = "slovo";
 
-// Текущая страница
+// Г’ГҐГЄГіГ№Г Гї Г±ГІГ°Г Г­ГЁГ¶Г 
 if (!isset($_GET['page'])) $p = 1;
 else {
     $p = intval($_GET['page']);
     if ($p < 1) $p = 1;
 }
 
-// Подсчитываем количество записей
+// ГЏГ®Г¤Г±Г·ГЁГІГ»ГўГ ГҐГ¬ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г§Г ГЇГЁГ±ГҐГ©
 $total = mysql_result(mysql_query("SELECT COUNT(*) FROM $table WHERE section='slovo'"), 0, 0);
 $num_pages = ceil($total / $num_elements);
 if ($p > $num_pages) $p = $num_pages;
@@ -42,12 +42,12 @@ $start = ($p - 1) * $num_elements;
 
 echo GetNav($p, $num_pages, "slovo_padre") . '<hr style="width: 100%" />';
 
-// Выборка данных
+// Г‚Г»ГЎГ®Г°ГЄГ  Г¤Г Г­Г­Г»Гµ
 $q = mysql_query("SELECT * FROM $table WHERE section='slovo' ORDER BY data DESC LIMIT $start, $num_elements");
 if (mysql_num_rows($q) > 0) {
     while ($res = mysql_fetch_assoc($q)) {
 
-        // Форматируем дату
+        // Г”Г®Г°Г¬Г ГІГЁГ°ГіГҐГ¬ Г¤Г ГІГі
         $dtn = $res['data'];
         $yyn = substr($dtn, 0, 4);
         $mmn = substr($dtn, 5, 2);
@@ -55,20 +55,22 @@ if (mysql_num_rows($q) > 0) {
         $hours = substr($dtn, 11, 5);
 
         $monthes = array(
-            "01"=>"января","02"=>"февраля","03"=>"марта","04"=>"апреля","05"=>"мая","06"=>"июня",
-            "07"=>"июля","08"=>"августа","09"=>"сентября","10"=>"октября","11"=>"ноября","12"=>"декабря"
+            "01"=>"ГїГ­ГўГ Г°Гї","02"=>"ГґГҐГўГ°Г Г«Гї","03"=>"Г¬Г Г°ГІГ ","04"=>"Г ГЇГ°ГҐГ«Гї","05"=>"Г¬Г Гї","06"=>"ГЁГѕГ­Гї",
+            "07"=>"ГЁГѕГ«Гї","08"=>"Г ГўГЈГіГ±ГІГ ","09"=>"Г±ГҐГ­ГІГїГЎГ°Гї","10"=>"Г®ГЄГІГїГЎГ°Гї","11"=>"Г­Г®ГїГЎГ°Гї","12"=>"Г¤ГҐГЄГ ГЎГ°Гї"
         );
         if ($ddn[0] == '0') $ddn = substr($ddn, 1);
         $mm1n = $monthes[$mmn];
-        $ddttn = '<span class="date">'.$ddn.' '.$mm1n.' '.$yyn.' г. '.$hours.'</span>';
+                max-width:130px;
+                max-height:130px;
+                height:auto;
 
-        // Текст 25 слов
+        // Г’ГҐГЄГ±ГІ 25 Г±Г«Г®Гў
         $plain = strip_tags($res['kratko']);
         $words = explode(' ', $plain);
         $short = implode(' ', array_slice($words, 0, 25));
         if (count($words) > 25) $short .= '...';
 
-        // --- Вывод блоков ---
+        // --- Г‚Г»ГўГ®Г¤ ГЎГ«Г®ГЄГ®Гў ---
 
         echo '<div class="block_title">';
         echo '<span class="title"><a href="slovo_padre_show.php?link='.urlencode($res['link']).'">'.$res['tema'].'</a></span><br />'.$ddttn;
