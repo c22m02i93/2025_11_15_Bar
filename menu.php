@@ -1,208 +1,66 @@
-<div class="menu" >
-<div>
-<div id="centr">
-<ul id="menu">
-		       
-	<li>
-		<a id="last">Архиерей</a>
-		<ul>  
-			<li <? if ($arhi == yes) echo 'class="menu_none"';?>>
-			<?
-			if ($arhi == yes) echo '<a>Биография</a>';
-			else echo '<a href="arhierei.php">Биография</a>';
-			?>
-			</li>  
+<nav class="main-menu">
+  <div class="menu-shell">
+    <ul class="menu-list">
+      <li class="menu-item">
+        <span class="menu-link<?php if ($arhi == yes) echo ' active'; ?>">РђСЂС…РёРµСЂРµР№</span>
+        <ul class="submenu">
+          <li<?php if ($arhi == yes) echo ' class="active"'; ?>><?php echo ($arhi == yes) ? '<span>Р‘РёРѕРіСЂР°С„РёСЏ</span>' : '<a href="arhierei.php">Р‘РёРѕРіСЂР°С„РёСЏ</a>'; ?></li>
+          <li<?php if ($slovo_padre == yes) echo ' class="active"'; ?>><?php echo ($slovo_padre == yes) ? '<span>РЎР»РѕРІРѕ Р°СЂС…РёРїР°СЃС‚С‹СЂСЏ</span>' : '<a href="slovo_padre.php">РЎР»РѕРІРѕ Р°СЂС…РёРїР°СЃС‚С‹СЂСЏ</a>'; ?></li>
+          <li<?php if ($raspisanie == yes) echo ' class="active"'; ?>><?php echo ($raspisanie == yes) ? '<span>РЎР»СѓР¶РµРЅРёРµ</span>' : '<a href="raspisanie.php">РЎР»СѓР¶РµРЅРёРµ</a>'; ?></li>
+        </ul>
+      </li>
 
-			<li <? if ($slovo_padre == yes) echo 'class="menu_none"';?>>
-			<?
-			if ($slovo_padre == yes) echo '<a>Слово архипастыря</a>';
-			else echo '<a href="slovo_padre.php">Слово архипастыря</a>';
-			?>
-			</li>  
-			
-			<li <? if ($raspisanie == yes) echo 'class="menu_none"';?>>
-			<?
-			if ($raspisanie == yes) echo '<a>Служение</a>';
-			else echo '<a href="raspisanie.php">Служение</a>';
-			?>
-			</li>  
-		</ul>
-	</li>
+      <li class="menu-item">
+        <span class="menu-link<?php if ($new == yes) echo ' active'; ?>">РќРѕРІРѕСЃС‚Рё</span>
+        <ul class="submenu">
+          <li<?php if ($new == yes) echo ' class="active"'; ?>><?php echo ($new == yes) ? '<span>РќРѕРІРѕСЃС‚Рё РµРїР°СЂС…РёРё</span>' : '<a href="news.php">РќРѕРІРѕСЃС‚Рё РµРїР°СЂС…РёРё</a>'; ?></li>
+          <li<?php if ($anons == yes) echo ' class="active"'; ?>><?php echo ($anons == yes) ? '<span>РђРЅРѕРЅСЃС‹ Рё РѕР±СЉСЏРІР»РµРЅРёСЏ</span>' : '<a href="anons.php">РђРЅРѕРЅСЃС‹ Рё РѕР±СЉСЏРІР»РµРЅРёСЏ</a>'; ?></li>
+          <li<?php if ($pub == yes) echo ' class="active"'; ?>><?php echo ($pub == yes) ? '<span>РџСѓР±Р»РёРєР°С†РёРё</span>' : '<a href="pub.php">РџСѓР±Р»РёРєР°С†РёРё</a>'; ?></li>
+        </ul>
+      </li>
 
-	<li>
-		<a>Новости</a>
-		<ul>  
-			<li <? if ($new == yes) echo 'class="menu_none"';?>>
-			<?
-			if ($new == yes) echo '<a>Новости епархии</a>';
-			else echo '<a href="news.php">Новости епархии</a>';
-			?>
-			</li>  
+      <li class="menu-item">
+        <span class="menu-link<?php if ($tip) echo ' active'; ?>">Р”РѕРєСѓРјРµРЅС‚С‹</span>
+        <ul class="submenu">
+          <li<?php if ($tip == ukaz) echo ' class="active"'; ?>><?php echo ($tip == ukaz) ? '<span>РЈРєР°Р·С‹</span>' : '<a href="doks.php?tip=ukaz">РЈРєР°Р·С‹</a>'; ?></li>
+          <li<?php if ($tip == raspor) echo ' class="active"'; ?>><?php echo ($tip == raspor) ? '<span>Р Р°СЃРїРѕСЂСЏР¶РµРЅРёСЏ</span>' : '<a href="doks.php?tip=raspor">Р Р°СЃРїРѕСЂСЏР¶РµРЅРёСЏ</a>'; ?></li>
+          <li<?php if ($tip == cirk) echo ' class="active"'; ?>><?php echo ($tip == cirk) ? '<span>Р¦РёСЂРєСѓР»СЏСЂС‹</span>' : '<a href="doks.php?tip=cirk">Р¦РёСЂРєСѓР»СЏСЂС‹</a>'; ?></li>
+          <li<?php if ($tip == udostoverenie) echo ' class="active"'; ?>><?php echo ($tip == udostoverenie) ? '<span>РЈРґРѕСЃС‚РѕРІРµСЂРµРЅРёСЏ</span>' : '<a href="doks.php?tip=udostoverenie">РЈРґРѕСЃС‚РѕРІРµСЂРµРЅРёСЏ</a>'; ?></li>
+        </ul>
+      </li>
 
-			<li <? if ($anons == yes) echo 'class="menu_none"';?>>
-			<?
-			if ($anons == yes) echo '<a>Анонсы и объявления</a>';
-			else echo '<a href="anons.php">Анонсы и объявления</a>';
-			?>
-			</li>  
-			
-			<li <? if ($pub == yes) echo 'class="menu_none"';?>>
-			<?
-			if ($pub == yes) echo '<a>Публикации</a>';
-			else echo '<a href="pub.php">Публикации</a>';
-			?>
-			</li>  
-		</ul>
-	</li>
+      <li class="menu-item">
+        <span class="menu-link<?php if ($histor == yes || $barysh == yes || $upravlenie == yes || $otdel == yes || $klir == yes) echo ' active'; ?>">Р•РїР°СЂС…РёСЏ</span>
+        <ul class="submenu">
+          <li<?php if ($histor == yes) echo ' class="active"'; ?>><?php echo ($histor == yes) ? '<span>РСЃС‚РѕСЂРёСЏ</span>' : '<a href="histor.php">РСЃС‚РѕСЂРёСЏ</a>'; ?></li>
+          <li<?php if ($barysh == yes) echo ' class="active"'; ?>><?php echo ($barysh == yes) ? '<span>РђСЂС…РёРµСЂРµРё Р‘Р°СЂС‹С€СЃРєРѕР№ РµРїР°СЂС…РёРё</span>' : '<a href="barysh.php">РђСЂС…РёРµСЂРµРё Р‘Р°СЂС‹С€СЃРєРѕР№ РµРїР°СЂС…РёРё</a>'; ?></li>
+          <li<?php if ($upravlenie == yes) echo ' class="active"'; ?>><?php echo ($upravlenie == yes) ? '<span>РЈРїСЂР°РІР»РµРЅРёРµ</span>' : '<a href="upravlenie.php">РЈРїСЂР°РІР»РµРЅРёРµ</a>'; ?></li>
+          <li<?php if ($otdel == yes) echo ' class="active"'; ?>><?php echo ($otdel == yes) ? '<span>РћС‚РґРµР»С‹</span>' : '<a href="otdel.php">РћС‚РґРµР»С‹</a>'; ?></li>
+          <li<?php if ($klir == yes) echo ' class="active"'; ?>><?php echo ($klir == yes) ? '<span>Р”СѓС…РѕРІРµРЅСЃС‚РІРѕ</span>' : '<a href="klir.php">Р”СѓС…РѕРІРµРЅСЃС‚РІРѕ</a>'; ?></li>
+        </ul>
+      </li>
 
-	<li>
-		<a>Документы</a>
-		<ul>  
-			<li <? if ($tip==ukaz) echo 'class="menu_none"';?>>
-			<?
-			if ($tip==ukaz) echo '<a>Указы</a>';
-			else echo '<a href="doks.php?tip=ukaz">Указы</a>';
-			?>
-			</li>  
+      <li class="menu-item">
+        <span class="menu-link<?php if ($prihods == yes || $mon == yes || $old_prihods == yes || $map == yes) echo ' active'; ?>">РџСЂРёС…РѕРґС‹</span>
+        <ul class="submenu">
+          <li<?php if ($mon == yes) echo ' class="active"'; ?>><?php echo ($mon == yes) ? '<span>Р–Р°РґРѕРІСЃРєРёР№ РјРѕРЅР°СЃС‚С‹СЂСЊ</span>' : '<a href="mon.php">Р–Р°РґРѕРІСЃРєРёР№ РјРѕРЅР°СЃС‚С‹СЂСЊ</a>'; ?></li>
+          <li<?php if ($prihods == yes) echo ' class="active"'; ?>><?php echo ($prihods == yes) ? '<span>Р”РµР№СЃС‚РІСѓСЋС‰РёРµ РїСЂРёС…РѕРґС‹</span>' : '<a href="prihods.php">Р”РµР№СЃС‚РІСѓСЋС‰РёРµ РїСЂРёС…РѕРґС‹</a>'; ?></li>
+          <li<?php if ($old_prihods == yes) echo ' class="active"'; ?>><?php echo ($old_prihods == yes) ? '<span>Р Р°Р·СЂСѓС€РµРЅРЅС‹Рµ С…СЂР°РјС‹</span>' : '<a href="old_prihods.php">Р Р°Р·СЂСѓС€РµРЅРЅС‹Рµ С…СЂР°РјС‹</a>'; ?></li>
+          <li<?php if ($map == yes) echo ' class="active"'; ?>><?php echo ($map == yes) ? '<span>РљР°СЂС‚Р° РїСЂРёС…РѕРґРѕРІ</span>' : '<a href="map.php">РљР°СЂС‚Р° РїСЂРёС…РѕРґРѕРІ</a>'; ?></li>
+        </ul>
+      </li>
 
-			<li <? if ($tip == raspor) echo 'class="menu_none"';?>>
-			<?
-			if ($tip == raspor) echo '<a>Распоряжения</a>';
-			else echo '<a href="doks.php?tip=raspor">Распоряжения</a>';
-			?>
-			</li>  
-			
-			<li <? if ($tip == cirk) echo 'class="menu_none"';?>>
-			<?
-			if ($tip == cirk) echo '<a>Циркуляры</a>';
-			else echo '<a href="doks.php?tip=cirk">Циркуляры</a>';
-			?>
-			</li>  
-			
-			<li <? if ($tip == udostoverenie) echo 'class="menu_none"';?>>
-			<?
-			if ($tip == udostoverenie) echo '<a>Удостоверения</a>';
-			else echo '<a href="doks.php?tip=udostoverenie">Удостоверения</a>';
-			?>
-			</li>       
-		</ul>
-	</li>
+      <li class="menu-item">
+        <span class="menu-link<?php if ($video == yes || $gazeta == yes) echo ' active'; ?>">РњРµРґРёР°</span>
+        <ul class="submenu">
+          <li<?php if ($video == yes) echo ' class="active"'; ?>><?php echo ($video == yes) ? '<span>Р’РёРґРµРѕ</span>' : '<a href="video.php">Р’РёРґРµРѕ</a>'; ?></li>
+          <li<?php if ($gazeta == yes) echo ' class="active"'; ?>><?php echo ($gazeta == yes) ? '<span>Р“Р°Р·РµС‚Р° "РњРѕСЏ РµРїР°СЂС…РёСЏ"</span>' : '<a href="gazeta.php">Р“Р°Р·РµС‚Р° "РњРѕСЏ РµРїР°СЂС…РёСЏ"</a>'; ?></li>
+          <li<?php if ($sv_vecher == yes) echo ' class="active"'; ?>><?php echo ($sv_vecher == yes) ? '<span>Р Р°РґРёРѕРїРµСЂРµРґР°С‡Р° "РЎРІРµС‚Р»С‹Р№ РІРµС‡РµСЂ"</span>' : '<a href="sv_vecher.php">Р Р°РґРёРѕРїРµСЂРµРґР°С‡Р° "РЎРІРµС‚Р»С‹Р№ РІРµС‡РµСЂ"</a>'; ?></li>
+        </ul>
+      </li>
 
-	<li>
-		<a>Епархия</a>
-		<ul>  
-			<li <? if ($histor == yes) echo 'class="menu_none"';?>>
-			<?
-			if ($histor == yes) echo '<a>История</a>';
-			else echo '<a href="histor.php">История</a>';
-			?>
-			</li>  
-
-			<!-- Новая страница Барышской епархии -->
-			<li <? if ($barysh == yes) echo 'class="menu_none"';?>>
-			<?
-			if ($barysh == yes) echo '<a>Архиереи Барышской епархии </a>';
-			else echo '<a href="barysh.php">Архиереи Барышской епархии</a>';
-			?>
-			</li>
-
-			<li <? if ($upravlenie == yes) echo 'class="menu_none"';?>>
-			<?
-			if ($upravlenie == yes) echo '<a>Управление</a>';
-			else echo '<a href="upravlenie.php">Управление</a>';
-			?>
-			</li>  
-			
-			<li <? if ($otdel == yes) echo 'class="menu_none"';?>>
-			<?
-			if ($otdel == yes) echo '<a>Отделы</a>';
-			else echo '<a href="otdel.php">Отделы</a>';
-			?>
-			</li> 
-			
-			<li <? if ($klir == yes) echo 'class="menu_none"';?>>
-			<?
-			if ($klir == yes) echo '<a>Духовенство</a>';
-			else echo '<a href="klir.php">Духовенство</a>';
-			?>
-			</li>  
-		</ul>
-	</li>
-
-	<li>
-		<a>Приходы</a>
-		<ul>  
-			<li <? if ($mon == yes) echo 'class="menu_none"';?>>
-			<?
-			if ($mon == yes) echo '<a>Жадовский монастырь</a>';
-			else echo '<a href="mon.php">Жадовский монастырь</a>';
-			?>
-			</li>  
-
-			<li <? if ($prihods == yes) echo 'class="menu_none"';?>>
-			<?
-			if ($prihods == yes) echo '<a>Действующие приходы</a>';
-			else echo '<a href="prihods.php">Действующие приходы</a>';
-			?>
-			</li>  
-			
-			<li <? if ($old_prihods == yes) echo 'class="menu_none"';?>>
-			<?
-			if ($old_prihods == yes) echo '<a>Разрушенные храмы</a>';
-			else echo '<a href="old_prihods.php">Разрушенные храмы</a>';
-			?>
-			</li>  
-			
-			<li <? if ($map == yes) echo 'class="menu_none"';?>>
-			<?
-			if ($map == yes) echo '<a>Карта приходов</a>';
-			else echo '<a href="map.php">Карта приходов</a>';
-			?>
-			</li>  
-		</ul>
-	</li>
-
-	<li>
-		<a>Медиа</a>
-		<ul>  
-			<li <? if ($video == yes) echo 'class="menu_none"';?>>
-			<?
-			if ($video == yes) echo '<a>Видео</a>';
-			else echo '<a href="video.php">Видео</a>';
-			?>
-			</li>
-
-			<li <? if ($gazeta == yes) echo 'class="menu_none"';?>>
-			<?
-			if ($gazeta == yes) echo '<a>Газета "Моя епархия"</a>';
-			else echo '<a href="gazeta.php">Газета "Моя епархия"</a>';
-			?>
-			</li>
-
-			<li <? if ($radio == yes) echo 'class="menu_none"';?>>
-			<?
-			if ($radio == yes) echo '<a>Радиопередача "Светлый вечер"</a>';
-			else echo '<a href="sv_vecher.php">Радиопередача "Светлый вечер"</a>';
-			?>
-			</li>  
-		</ul>
-	</li>
-
-	<li <? if ($kontakt == yes) echo 'class="menu_none"';?>>
-	<?
-	if ($kontakt == yes) echo '<a>Контакты</a>';
-	else echo '<a href="kontakt.php">Контакты</a>';
-	?>
-	</li> 
-		
-	<li <? if ($top == yes) echo 'class="menu_none"';?>>
-	<?
-	if ($top == yes) echo '<a style="color:red; opacity:.7">Читаемое</a>';
-	else echo '<a class="top" href="top.php">Читаемое</a>';
-	?>
-	</li>
-
-</ul>
-</div>
-</div>
-</div>
+      <li class="menu-item single"><a href="kontakt.php" class="menu-link<?php if ($kontakt == yes) echo ' active'; ?>">РљРѕРЅС‚Р°РєС‚С‹</a></li>
+      <li class="menu-item single"><a href="top.php" class="menu-link<?php if ($top == yes) echo ' active'; ?>">Р§РёС‚Р°РµРјРѕРµ</a></li>
+    </ul>
+  </div>
+</nav>

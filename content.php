@@ -1,67 +1,57 @@
-<!--noindex--><div id="content_right"> 
-<div class="box"><h3>События</h3>
- <?   mysql_connect("localhost", "host1409556", "0f7cd928");
- mysql_query("SET NAMES 'cp1251'");
-	$news_all = mysql_query("SELECT * FROM host1409556_barysh.news ORDER BY data DESC LIMIT 5");
-	for ($t=0; $t<mysql_num_rows($news_all); $t++)
-{
-$news = mysql_fetch_array($news_all); 
+<aside id="content_right" class="sidebar-stack">
+  <div class="card card-section">
+    <div class="card-body text-center">
+      <a href="//www.yandex.ru/?add=178939&from=promocode" class="text-decoration-none fw-semibold text-dark">
+        РќР°С€ РЅРѕРІРѕСЃС‚РЅРѕР№ РІРёРґР¶РµС‚ РЅР° <span class="text-danger">РЇ</span><span class="text-dark">РЅРґРµРєСЃ</span>
+      </a>
+    </div>
+  </div>
 
-$dtn = $news[data]; 
-$yyn = substr($dtn,0,4); // Год
-$mmn = substr($dtn,5,2); // Месяц
-$ddn = substr($dtn,8,2); // День
+  <div class="card card-section">
+    <div class="card-header text-center py-3">
+      <span class="section-title">РљР°Р»РµРЅРґР°СЂСЊ РµРїР°СЂС…РёРё</span>
+    </div>
+    <div class="card-body calendar-list">
+      <?php
+      mysql_connect("localhost", "host1409556", "0f7cd928");
+      mysql_query("SET NAMES 'cp1251'");
+      $today = date('Y-m-d');
+      $month = date('m');
+      $calendar = mysql_query("SELECT * FROM host1409556_barysh.calendar WHERE DATE_FORMAT(data, '%m') = '$month' ORDER BY data ASC");
+      if ($calendar && mysql_num_rows($calendar) > 0) {
+          while ($row = mysql_fetch_assoc($calendar)) {
+              $date = strtotime($row['data']);
+              $dayLabel = date('d.m', $date);
+              echo '<div class="date-item">';
+              echo '<div class="calendar-date">' . date('d F', $date) . '</div>';
+              echo '<p class="mb-1 fw-semibold">' . $row['kategoriya'] . '</p>';
+              echo '<p class="mb-0"><a href="' . $row['url'] . '" target="_blank">' . $row['tema'] . '</a></p>';
+              echo '</div>';
+              echo '<hr class="my-3" />';
+          }
+      } else {
+          echo '<p class="mb-0 text-muted text-center">РќРµС‚ Р·Р°РїРёСЃРµР№ РЅР° С‚РµРєСѓС‰РёР№ РјРµСЃСЏС†.</p>';
+      }
+      ?>
+      <div class="text-center mt-2"><a class="link-secondary" href="/kalendar.php?month=<?php echo $month; ?>">Р’РµСЃСЊ РєР°Р»РµРЅРґР°СЂСЊ</a></div>
+    </div>
+  </div>
 
-// Переназначаем переменные
-if ($mmn == "01") $mm1n="янв.";
-if ($mmn == "02") $mm1n="фев.";
-if ($mmn == "03") $mm1n="мар.";
-if ($mmn == "04") $mm1n="апр.";
-if ($mmn == "05") $mm1n="мая";
-if ($mmn == "06") $mm1n="июн.";
-if ($mmn == "07") $mm1n="июл.";
-if ($mmn == "08") $mm1n="авг.";
-if ($mmn == "09") $mm1n="сен.";
-if ($mmn == "10") $mm1n="окт.";
-if ($mmn == "11") $mm1n="нояб.";
-if ($mmn == "12") $mm1n="дек.";
+  <div class="card card-section text-center">
+    <div class="card-body">
+      <a href="/prihod.php?id=21"><img src="/IMG/glotovka.png" class="img-fluid mx-auto d-block" alt="Р“Р»РѕС‚РѕРІРєР°" /></a>
+    </div>
+  </div>
 
-if ($ddn == "01") $ddn="1";
-if ($ddn == "02") $ddn="2";
-if ($ddn == "03") $ddn="3";
-if ($ddn == "04") $ddn="4";
-if ($ddn == "05") $ddn="5";
-if ($ddn == "06") $ddn="6";
-if ($ddn == "07") $ddn="7";
-if ($ddn == "08") $ddn="8";
-if ($ddn == "09") $ddn="9";
+  <div class="card card-section text-center">
+    <div class="card-body">
+      <a href="/saints.php"><img src="/IMG/saints.png" class="img-fluid mx-auto d-block" alt="РЎРІСЏС‚С‹Рµ" /></a>
+    </div>
+  </div>
 
-$hours = substr($dtn,11,5); // Время 
-
-$ddttn = '<span class="date">'.$ddn.' '.$mm1n.' '.$yyn.' г. '.$hours.'</span>'; // Конечный вид строки
-
-	$patterns = array ('/\n/');
-	$replace = array ('</p><p>');
-	$text = preg_replace($patterns, $replace, $news[text]);
-
-echo $ddttn;
-
-if ($auth == 1) echo '<a href="delete_news.php?data='.$news[data].'"><img style="display: block;float: right;border: 0; margin: 0 5px 0 0; " src="IMG/delete.png"/></a>';
-
-echo '<p><a href="'.$news[url].'.php?data='.$news[data].'">'.$news[tema].'</a></p><p>'.$text.'</p><br />';
-}
-?>
-</div>
-<br />
-
-<div class="box"><h3>Карта приходов</h3>
-<a href="http://www.barysh-eparhia.ru/map.php" ><CENTER><img style="border: #BEC7BE 1px solid; width: 75%; margin: 0 auto" src="IMG/map.png" /></CENTER></a>
-</div>
-
-<br />
-
-<div style="text-align: center"><a href="http://ekzeget.ru/" target="_blank" ><img style="width: 75%; margin: 0 auto" src="/IMG/ekzeget.png" border="0" /></a>
-</div>
-<br />
-</div>
-<!--/noindex-->
+  <div class="card card-section text-center">
+    <div class="card-body">
+      <a href="hod.php"><img src="/IMG/hod.png" class="img-fluid mx-auto d-block" alt="РљСЂРµСЃС‚РЅС‹Р№ С…РѕРґ" /></a>
+    </div>
+  </div>
+</aside>
